@@ -9,7 +9,13 @@ export default function FloatingChatbot() {
       icon: <MessageCircle className="w-6 h-6" />,
       label: 'WhatsApp',
       color: 'bg-green-500',
-      action: () => window.open('https://wa.me/+919115253545', '_blank')
+      action: () => {
+        const link = document.createElement('a');
+        link.href = 'https://wa.me/+919115253545';
+        link.target = '_blank';
+        link.rel = 'nofollow';
+        link.click();
+      }
     },
     {
       icon: <Phone className="w-6 h-6" />,

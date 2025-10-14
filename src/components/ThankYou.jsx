@@ -78,7 +78,7 @@ export default function ThankYou() {
 
         {/* Footer Note */}
         <p className="text-center text-white text-sm mt-6 opacity-90">
-          Need immediate assistance? Call us at <span className="font-semibold">+1 (555) 123-4567</span>
+          Need immediate assistance? Call us at <a href="tel:+919115253545" className="font-semibold hover:text-[#20ae9b] transition-colors">+91-9115253545</a>
         </p>
       </div>
     </div>

@@ -260,11 +260,11 @@ export default function AmritGrah() {
                 <div className="space-y-3 text-sm">
                   <div className="flex items-center gap-2 text-gray-600">
                     <Phone size={16} />
-                    <span>+91-120-410-7573</span>
+                    <a href="tel:+911204107573" className="hover:text-[#20ae9b] transition-colors">+91-120-410-7573</a>
                   </div>
                   <div className="flex items-center gap-2 text-gray-600">
                     <Mail size={16} />
-                    <span>info@maxpinegroup.in</span>
+                    <a href="mailto:info@maxpinegroup.in" className="hover:text-[#20ae9b] transition-colors">info@maxpinegroup.in</a>
                   </div>
                 </div>
               </div>

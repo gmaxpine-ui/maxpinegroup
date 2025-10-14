@@ -10,16 +10,34 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"), //  '@' alias define
     },
   },
+  server: {
+    host: true,
+    port: 5173,
+    hmr: {
+      overlay: false
+    }
+  },
   build: {
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ["react", "react-dom"], // Separate vendor chunk
-          
-          // ui: ["@/components/ui/button", "@/components/ui/card"],
+          vendor: ["react", "react-dom"],
+          swiper: ["swiper/react", "swiper/modules"],
+          framer: ["framer-motion"],
+          icons: ["lucide-react"],
+          router: ["react-router-dom"],
         },
       },
     },
-    chunkSizeWarningLimit: 1500, // Increase size limit to hide warning
+    chunkSizeWarningLimit: 1500,
+    // Performance optimizations
+    minify: 'esbuild', // Use esbuild instead of terser
+    // Asset optimization
+    assetsInlineLimit: 4096, // Inline assets smaller than 4kb
+  },
+  // Image optimization
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-router-dom'],
   },
 });
+

@@ -200,11 +200,11 @@ switch (formData.property) {
               <h3 className="text-xl font-bold mb-4">Need Help?</h3>
               <p className="text-[#cdd1c7] mb-4 text-sm">Our team is ready to assist you with scheduling and property selection.</p>
               <div className="space-y-3">
-                <a href="tel:+15551234567" className="flex  gap-3 text-white  transition-colors">
+                <a href="tel:+919115253545" className="flex  gap-3 text-white  transition-colors">
                   <Phone className="w-5 h-5" />
                   <span>+91-9115253545 <br/> (+91) 1204107573 </span>
                 </a>
-                <a href="mailto:visits@realestate.com" className="flex items-center gap-3 text-white transition-colors">
+                <a href="mailto:info@maxpinegroup.in" className="flex items-center gap-3 text-white transition-colors">
                   <Mail className="w-5 h-5" />
                   <span>info@maxpinegroup.in </span>
                 </a>

@@ -426,12 +426,14 @@ export default function PropertyListing() {
                             <div className="space-y-3 mb-4">
                                 <div className="flex items-center text-sm">
                                     <Phone className="w-4 h-4 mr-2 text-gray-600" />
-                                    <span>+91-1204107573, +91-9115253545 </span>
+                                    <span>
+                                        <a href="tel:+911204107573" className="hover:text-[#20ae9b] transition-colors">+91-1204107573</a>, 
+                                        <a href="tel:+919115253545" className="hover:text-[#20ae9b] transition-colors"> +91-9115253545</a>
+                                    </span>
                                 </div>
                                 <div className="flex items-center text-sm">
                                     <Mail className="w-4 h-4 mr-2 text-gray-600" />
-                                    <span>info@anugrahhomes.com
-                                    </span>
+                                    <a href="mailto:info@anugrahhomes.com" className="hover:text-[#20ae9b] transition-colors">info@anugrahhomes.com</a>
                                 </div>
                             </div>
 

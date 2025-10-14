@@ -28,6 +28,7 @@ import PersonalRapidTransit from "./pages/Navbar/PersonalRapidTransit";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import FloatingChatbot from "./components/FloatingChatbot";
 import UsePageTitle from "./components/UsePageTitle";
+import PerformanceMonitor from "./components/PerformanceMonitor";
 // import AmritGrah from "./pages/Navbar/AmritGrah";
 import AnugrahHome from "./pages/AnugrahHome";
 import BrijVrinda from "./pages/BrijVrinda";
@@ -65,6 +66,7 @@ function App() {
       {/* <SmoothScroll> */}
       <ScrollToTop />
       <UsePageTitle />
+      <PerformanceMonitor />
       <Navbar />
       <FloatingChatbot />
 
@@ -100,10 +102,10 @@ function App() {
         <Route path="/updates/logistics-park/media" element={<News />} />
         <Route path="/updates/personal-rapid-transit/media" element={<News />} />
 
-        <Route path="/developments/anugrahhomes/media" element={<News />} />
-        <Route path="/developments/skyline/media" element={<News />} />
-        <Route path="/developments/brij_vrinda/media" element={<News />} />
-        <Route path="/developments/the_club_farm/media" element={<News />} />
+        <Route path="/developments/anugrahhomes/blogs" element={<News />} />
+        <Route path="/developments/skyline/blogs" element={<News />} />
+        <Route path="/developments/brij_vrinda/blogs" element={<News />} />
+        <Route path="/developments/the_club_farm/blogs" element={<News />} />
 
 
 
@@ -214,7 +216,7 @@ function App() {
         <Route path="/developments/brij_vrinda" element={<Development />} />
         <Route path="/developments/the_club_farm" element={<Development_CF />} />
 
-        <Route path="/projects/anugrahhomes/keypaln" element={<KeyPlayAH />} />
+        <Route path="/projects/anugrahhomes/keyplan" element={<KeyPlayAH />} />
         <Route path="/projects/anugrahhomes/layout" element={<LayoutAH />} />
         <Route path="/projects/anugrahhomes/pricelist" element={<PriceList_AH />} />
 

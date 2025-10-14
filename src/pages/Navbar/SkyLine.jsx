@@ -310,14 +310,14 @@ export default function SkyLine() {
 
               <div className="mt-6 pt-6 border-t space-y-3">
                 <a
-                  href="tel:+911204107573"
+                  href="tel:+919266559209"
                   className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
                 >
                   <Phone className="w-5 h-5 text-[#20ae9b]" />
                   <span className="text-gray-700">+91-9266559209</span>
                 </a>
                 <a
-                  href="mailto:info@maxpinegroup.in"
+                  href="mailto:info@skylineaerohomes.com"
                   className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
                 >
                   <Mail className="w-5 h-5 text-[#20ae9b]" />

@@ -318,11 +318,11 @@ export default function About() {
             <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 sm:gap-6 text-black">
               <div className="flex items-center gap-3 bg-white bg-opacity-10 rounded-lg px-4 sm:px-6 py-3 backdrop-blur-sm hover:bg-opacity-20 transition-all">
                 <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-[#20ae9b]" />
-                <span className="font-medium text-sm sm:text-base">+91-9115253545</span>
+                <a href="tel:+919115253545" className="font-medium text-sm sm:text-base hover:text-[#20ae9b] transition-colors">+91-9115253545</a>
               </div>
               <div className="flex items-center gap-3 bg-white bg-opacity-10 rounded-lg px-4 sm:px-6 py-3 backdrop-blur-sm hover:bg-opacity-20 transition-all">
                 <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-[#20ae9b]" />
-                <span className="font-medium text-sm sm:text-base">info@maxpinegroup.in</span>
+                <a href="mailto:info@maxpinegroup.in" className="font-medium text-sm sm:text-base hover:text-[#20ae9b] transition-colors">info@maxpinegroup.in</a>
               </div>
               <div className="flex items-center gap-3 bg-white bg-opacity-10 rounded-lg px-4 sm:px-6 py-3 backdrop-blur-sm hover:bg-opacity-20 transition-all">
                 <MapPin className="w-6 h-6 md:w-5 md:h-5 text-[#20ae9b]" />

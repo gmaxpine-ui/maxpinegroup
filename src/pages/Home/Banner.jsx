@@ -3,12 +3,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import {Link} from "react-router-dom"
 import "swiper/css";
-// import img from "../../assets/All home imgs/video-placeholder.jpg";
 import "swiper/css/navigation";
 import { motion } from "framer-motion";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, lazy, Suspense } from "react";
 
+// Lazy load heavy components
+const OptimizedVideo = lazy(() => import("../../components/OptimizedVideo"));
 
+// Import only essential images
 import anulogo from "../../assets/All home imgs/logo-2.png"
 import brijlogo from "../../assets/BrijVrinda/Brij-Vrindra-removebg-preview.png"
 import skylogo from "../../assets/skyline/2.png"
@@ -19,10 +21,10 @@ import club from "../../assets/ClubForm/Club-logo.png"
 import banner_CF from "../../assets/ClubForm/banner-CF.png"
 import Anugrah_vid from "../../assets/video.mp4";
 import Sky_vid from "../../assets/skyline/3.mp4"
-// import brij_vid from "../../assets/BrijVrinda/brij-vid.mp4"
 import club_vid from "../../assets/ClubForm/club-vid.mp4"
 
-const brij_videos ="https://ik.imagekit.io/16pq4do9s/assets/BrijVrinda/Brij%20Vrinda_18Aug25%20(1)%20(1)%20(1)%20(1).mp4?updatedAt=1759845746168"
+// Use external video URLs for better performance
+const brij_videos = "https://ik.imagekit.io/16pq4do9s/assets/BrijVrinda/Brij%20Vrinda_18Aug25%20(1)%20(1)%20(1)%20(1).mp4?updatedAt=1759845746168"
 const slides = [
 
   {
@@ -201,12 +203,14 @@ export default function Banner() {
               <X className="w-6 h-6" />
             </button>
 
-            <video
-              src={videoModal.url}
-              controls
-              autoPlay
-              className="w-full h-auto max-h-[70vh] rounded-lg"
-            />
+            <Suspense fallback={<div className="w-full h-auto max-h-[70vh] rounded-lg bg-gray-200 animate-pulse flex items-center justify-center">Loading video...</div>}>
+              <OptimizedVideo
+                src={videoModal.url}
+                controls
+                autoPlay
+                className="w-full h-auto max-h-[70vh] rounded-lg"
+              />
+            </Suspense>
           </div>
         </div>
       )}

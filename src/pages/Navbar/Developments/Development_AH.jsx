@@ -74,11 +74,11 @@ export default function Development_AH() {
   ];
 
   const recentPosts = [
-    { title: "Buy Plots Near Jewar Airport – Anugrah Homes by Maxpine Group", link: "/developments/anugrahhomes/media" },
-    { title: "A Joyous Celebration at Anugrah Homes: Family Carnival Success!", link: "/developments/anugrahhomes/media" },
-    { title: "Lights, Camera, Action: Progress at International Film City (YIFIDA)", link: "/developments/anugrahhomes/media" },
-    { title: "Residential Plots Near Noida International Airport: A New Gateway to Global Connectivity", link: "/developments/anugrahhomes/media" },
-    { title: "A Festive Affair: Diwali at Anugrah Homes", link: "/developments/anugrahhomes/media" }
+    { title: "Buy Plots Near Jewar Airport – Anugrah Homes by Maxpine Group", link: "/developments/anugrahhomes/blogs" },
+    { title: "A Joyous Celebration at Anugrah Homes: Family Carnival Success!", link: "/developments/anugrahhomes/blogs" },
+    { title: "Lights, Camera, Action: Progress at International Film City (YIFIDA)", link: "/developments/anugrahhomes/blogs" },
+    { title: "Residential Plots Near Noida International Airport: A New Gateway to Global Connectivity", link: "/developments/anugrahhomes/blogs" },
+    { title: "A Festive Affair: Diwali at Anugrah Homes", link: "/developments/anugrahhomes/blogs" }
   ];
 
   const toggleSection = (id) => {

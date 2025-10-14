@@ -76,11 +76,11 @@ export default function Development_CF() {
   ];
 
   const recentPosts = [
-    { title: "Welcome to The Club Farm, an exclusive collection of farmhouse plots designed for those who seek peace", link: "/developments/the_club_farm/media" },
-    { title: "Spread across lush green landscapes, The Club Farm offers a serene environment surrounded by trees", link: "/developments/the_club_farm/media" },
-    { title: "The Perfect Weekend Retreat & Investment Destination", link: "/developments/the_club_farm/media" },
-    { title: "Infrastructure work is progressing steadily", link: "/developments/the_club_farm/media" },
-    { title: "A Festive Affair: Diwali at The Club Farm", link: "/developments/the_club_farm/media" }
+    { title: "Welcome to The Club Farm, an exclusive collection of farmhouse plots designed for those who seek peace", link: "/developments/the_club_farm/blogs" },
+    { title: "Spread across lush green landscapes, The Club Farm offers a serene environment surrounded by trees", link: "/developments/the_club_farm/blogs" },
+    { title: "The Perfect Weekend Retreat & Investment Destination", link: "/developments/the_club_farm/blogs" },
+    { title: "Infrastructure work is progressing steadily", link: "/developments/the_club_farm/blogs" },
+    { title: "A Festive Affair: Diwali at The Club Farm", link: "/developments/the_club_farm/blogs" }
   ];
 
   const toggleSection = (id) => {

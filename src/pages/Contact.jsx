@@ -275,8 +275,8 @@ export default function Contact() {
               </p>
 
               <p className="text-slate-600 gap-1.5 md:px-1 text-center">
-                +91-9115253545 <br /> +91-1204107573
-
+                <a href="tel:+919115253545" className="hover:text-[#20ae9b] transition-colors">+91-9115253545</a> <br /> 
+                <a href="tel:+911204107573" className="hover:text-[#20ae9b] transition-colors">+91-1204107573</a>
               </p>
             </div>
 

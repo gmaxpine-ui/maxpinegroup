@@ -1,75 +1,7 @@
-import { useState } from "react";
-import img1 from "../../assets/green-3.jpg"
-import img2 from "../../assets/green-4.jpg"
-import img3 from "../../assets/green-5.jpg"
-// import img4 from "../../assets/green-6.jpeg"
-import img5 from "../../assets/green-7.png"
-
-import anu1 from "../../assets/All home imgs/upadate-34.jpeg"
-import anu2 from "../../assets/All home imgs/update--14.jpeg"
-import anu3 from "../../assets/All home imgs/update-01.jpeg"
-import anu4 from "../../assets/All home imgs/update-02.jpeg"
-import anu5 from "../../assets/All home imgs/update-03.jpeg"
-import anu6 from "../../assets/All home imgs/update-04.jpeg"
-import anu7 from "../../assets/All home imgs/update-05.jpeg"
-// import anu8 from "../../assets/All home imgs/update-06.jpeg"
-import anu9 from "../../assets/All home imgs/update-07.jpeg"
-import anu10 from "../../assets/All home imgs/update-08.jpeg"
-import anu11 from "../../assets/All home imgs/update-11.jpeg"
-
-import sky1 from "../../assets/skyline/1.mp4"
-import sky2 from "../../assets/skyline/2.mp4"
-import sky5 from "../../assets/skyline/3.mp4"
-import sky3 from "../../assets/skyline/WhatsApp Image 2025-10-03 at 11.55.55 AM (1).jpeg"
-import sky4 from "../../assets/skyline/WhatsApp Image 2025-10-03 at 11.55.55 AM.jpeg"
-import sky10 from "../../assets/skyline/5.jpeg"
-import sky6 from "../../assets/skyline/6.jpeg"
-import sky7 from "../../assets/skyline/7.jpeg"
-import sky8 from "../../assets/skyline/8.jpeg"
-import sky9 from "../../assets/skyline/9.jpeg"
-
-import brij1 from "../../assets/BrijVrinda/1 (2).jpg"
-import brij2 from "../../assets/BrijVrinda/1 (3).jpg"
-import brij3 from "../../assets/BrijVrinda/1 (4).jpg"
-import brij4 from "../../assets/BrijVrinda/1 (5).jpg"
-import brij5 from "../../assets/BrijVrinda/1 (6).jpg"
-import brij6 from "../../assets/BrijVrinda/1 (7).jpg"
-import brij7 from "../../assets/BrijVrinda/1 (8).jpg"
-import brij8 from "../../assets/BrijVrinda/10.jpeg"
-import brij9 from "../../assets/BrijVrinda/11.jpeg"
-import brij10 from "../../assets/BrijVrinda/12.jpeg"
-import brij11 from "../../assets/BrijVrinda/1 (9).jpg"
-import brij12 from "../../assets/BrijVrinda/13.jpeg"
-import brij13 from "../../assets/BrijVrinda/14.jpeg"
-import brij14 from "../../assets/BrijVrinda/15.jpeg"    
-import brij15 from "../../assets/BrijVrinda/16.jpeg"
-import brij16 from "../../assets/BrijVrinda/17.jpeg"
-import brij17 from "../../assets/BrijVrinda/18.jpeg"
-import brij18 from "../../assets/BrijVrinda/19.jpeg"
-import brij19 from "../../assets/BrijVrinda/1.jpg"
-import brij20 from "../../assets/BrijVrinda/2.jpeg"
-
-
-import club1 from "../../assets/ClubForm/1.png"
-import club2 from "../../assets/ClubForm/2.jpeg"
-import club3 from "../../assets/ClubForm/3.jpg"
-import club4 from "../../assets/ClubForm/4.jpg"
-import club5 from "../../assets/ClubForm/6.jpg"
-import club6 from "../../assets/ClubForm/32.jpeg"
-import club7 from "../../assets/ClubForm/33.jpeg"
-import club8 from "../../assets/ClubForm/34.jpeg"
-import club9 from "../../assets/ClubForm/35.jpeg"
-import club10 from "../../assets/ClubForm/36.jpeg"
-import club11 from "../../assets/ClubForm/37.jpeg"
-import club12 from "../../assets/ClubForm/38.jpeg"
-import club13 from "../../assets/ClubForm/39.jpeg"
-import club14 from "../../assets/ClubForm/41.jpeg"    
-import club15 from "../../assets/ClubForm/42.jpeg"
-import club16 from "../../assets/ClubForm/43.jpeg"
-import club17 from "../../assets/ClubForm/44.jpeg"
-import club18 from "../../assets/ClubForm/club-vid.mp4"
-import club19 from "../../assets/ClubForm/40.jpeg"
-// import club20 from "../../assets/ClubForm/1.png"
+import { useState, useMemo } from "react";
+import OptimizedImage from "../../components/OptimizedImage";
+import OptimizedVideo from "../../components/OptimizedVideo";
+import { imagePaths, videoPaths } from "../../utils/imageLoader";
 
 
 
@@ -83,7 +15,7 @@ import club19 from "../../assets/ClubForm/40.jpeg"
 export default function PropertyGallery() {
   const [activeFilter, setActiveFilter] = useState("all");
   const [showAll, setShowAll] = useState(false);
-  const [popupItem, setPopupItem] = useState(null); // 🔹 For popup
+  const [popupItem, setPopupItem] = useState(null);
 
   const INITIAL_ITEMS = 6;
 
@@ -96,80 +28,39 @@ export default function PropertyGallery() {
     { id: "theClubFarm", label: "The Club Farm" }
   ];
 
-  const galleryItems = [
-    { id: 1, category: "anugrahHome", image: img1, title: "Garden View", type: "image" },
-    { id: 6, category: "maxpine", image: img2, title: "Garden View", type: "image" },
-    { id: 7, category: "maxpine", image: img3, title: "Garden View", type: "image" },
-    { id: 8, category: "skyLine", image: sky3, title: "Garden View", type: "image" },
-    { id: 9, category: "anugrahHome", image: img5, title: "Garden View", type: "image" },
-    { id: 10, category: "maxpine", image: img1, title: "Garden View", type: "image" },
-    { id: 11, category: "skyLine", image: sky4, title: "Garden View", type: "image" },
-    { id: 12, category: "anugrahHome", image: anu1, title: "Garden View", type: "image" },
-    { id: 13, category: "anugrahHome", image: anu2, title: "Garden View", type: "image" },
-    { id: 14, category: "anugrahHome", image: anu3, title: "Garden View", type: "image" },
-    { id: 15, category: "anugrahHome", image: anu4, title: "Garden View", type: "image" },
-    { id: 16, category: "anugrahHome", image: anu5, title: "Garden View", type: "image" },
-    { id: 17, category: "anugrahHome", image: anu6, title: "Garden View", type: "image" },
-    { id: 18, category: "anugrahHome", image: anu7, title: "Garden View", type: "image" },
-    { id: 19, category: "anugrahHome", image: anu9, title: "Garden View", type: "image" },
-    { id: 20, category: "anugrahHome", image: anu10, title: "Garden View", type: "image" },
-    { id: 21, category: "anugrahHome", image: anu11, title: "Garden View", type: "image" },
-    { id: 22, category: "skyLine", image: sky3, title: "Garden View", type: "image" },
-    { id: 23, category: "skyLine", src: sky1, title: "Skyline Video", type: "video" },
-    { id: 24, category: "skyLine", src: sky2, title: "Skyline Video ", type: "video" },
-    { id: 25, category: "skyLine", src: sky5, title: "Skyline Video ", type: "video" },
-     { id: 26, category: "skyLine", image: sky6, title: "Garden View", type: "image" },
-      { id: 27, category: "skyLine", image: sky7, title: "Garden View", type: "image" },
-       { id: 28, category: "skyLine", image: sky8, title: "Garden View", type: "image" },
-        { id: 29, category: "skyLine", image: sky9, title: "Garden View", type: "image" },
-         { id: 30, category: "skyLine", image: sky10, title: "Garden View", type: "image" },
+  // Generate gallery items dynamically
+  const galleryItems = useMemo(() => {
+    const items = [];
+    let id = 1;
 
-        //  Brij Vrinda
-          { id: 31, category: "brijVrinda", image: brij1, title: "Garden View", type: "image" },
-          { id: 32, category: "brijVrinda", image: brij2, title: "Garden View", type: "image" },
-          { id: 33, category: "brijVrinda", image: brij3, title: "Garden View", type: "image" },
-          { id: 34, category: "brijVrinda", image: brij4, title: "Garden View", type: "image" },
-          { id: 35, category: "brijVrinda", image: brij5, title: "Garden View", type: "image" },
-          { id: 36, category: "brijVrinda", image: brij6, title: "Garden View", type: "image" },
-          { id: 37, category: "brijVrinda", image: brij7, title: "Garden View", type: "image" },
-          { id: 38, category: "brijVrinda", image: brij8, title: "Garden View", type: "image" },
-          { id: 39, category: "brijVrinda", image: brij9, title: "Garden View", type: "image" },
-          { id: 40, category: "brijVrinda", image: brij10, title: "Garden View", type: "image" },
-          { id: 41, category: "brijVrinda", image: brij11, title: "Garden View", type: "image" },
-          { id: 42, category: "brijVrinda", image: brij12, title: "Garden View", type: "image" },
-           { id: 43, category: "brijVrinda", image: brij13, title: "Garden View", type: "image" },
-            { id: 44, category: "brijVrinda", image: brij14, title: "Garden View", type: "image" },
-             { id: 45, category: "brijVrinda", image: brij15, title: "Garden View", type: "image" },
-              { id: 46, category: "brijVrinda", image: brij16, title: "Garden View", type: "image" },
-               { id: 47, category: "brijVrinda", image: brij17, title: "Garden View", type: "image" },
-                { id: 48, category: "brijVrinda", image: brij18, title: "Garden View", type: "image" },
-                 { id: 49, category: "brijVrinda", image: brij19, title: "Garden View", type: "image" },
-                { id: 50, category: "brijVrinda", image: brij20, title: "Garden View", type: "image" },
+    // Add images for each category
+    Object.entries(imagePaths).forEach(([category, paths]) => {
+      paths.forEach((path, index) => {
+        items.push({
+          id: id++,
+          category,
+          image: path,
+          title: `${category} Image ${index + 1}`,
+          type: "image"
+        });
+      });
+    });
 
+    // Add videos for each category
+    Object.entries(videoPaths).forEach(([category, paths]) => {
+      paths.forEach((path, index) => {
+        items.push({
+          id: id++,
+          category,
+          src: path,
+          title: `${category} Video ${index + 1}`,
+          type: "video"
+        });
+      });
+    });
 
-    // The Club Farm
-
-    { id: 51, category: "theClubFarm", image: club1, title: "Garden View", type: "image" },
-    { id: 52, category: "theClubFarm", image: club2, title: "Garden View", type: "image" },
-    { id: 53, category: "theClubFarm", image: club3, title: "Garden View", type: "image" },
-    { id: 54, category: "theClubFarm", image: club4, title: "Garden View", type: "image" },
-    { id: 55, category: "theClubFarm", image: club5, title: "Garden View", type: "image" },
-    { id: 56, category: "theClubFarm", image: club6, title: "Garden View", type: "image" },
-    { id: 57, category: "theClubFarm", image: club7, title: "Garden View", type: "image" },
-    { id: 58, category: "theClubFarm", image: club8, title: "Garden View", type: "image" },
-    { id: 59, category: "theClubFarm", image: club9, title: "Garden View", type: "image" },
-    { id: 60, category: "theClubFarm", image: club10, title: "Garden View", type: "image" },
-    { id: 61, category: "theClubFarm", image: club11, title: "Garden View", type: "image" },
-    { id: 62, category: "theClubFarm", image: club12, title: "Garden View", type: "image" },
-    { id: 63, category: "theClubFarm", image: club13, title: "Garden View", type: "image" },
-    { id: 64, category: "theClubFarm", image: club14, title: "Garden View", type: "image" },
-    { id: 65, category: "theClubFarm", image: club15, title: "Garden View", type: "image" },
-    { id: 66, category: "theClubFarm", image: club16, title: "Garden View", type: "image" },
-    { id: 67, category: "theClubFarm", image: club17, title: "Garden View", type: "image" },
-    { id: 68, category: "theClubFarm", src: club18, title: "Club Farm Video ", type: "video" },
-    { id: 69, category: "theClubFarm", image: club19, title: "Garden View", type: "image" },
-    
-  ];
+    return items;
+  }, []);
 
   const filteredItems = activeFilter === "all"
     ? galleryItems
@@ -226,13 +117,13 @@ export default function PropertyGallery() {
               <div className={`relative ${index % 8 === 0 || index % 8 === 3 ? "h-80 lg:h-[90vh]" : "h-60 lg:h-72"
                 }`}>
                 {item.type === "image" ? (
-                  <img
+                  <OptimizedImage
                     src={item.image}
                     alt={item.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                 ) : (
-                  <video
+                  <OptimizedVideo
                     src={item.src}
                     muted
                     className="w-full h-full object-cover"
@@ -285,13 +176,13 @@ export default function PropertyGallery() {
               ✕
             </button>
             {popupItem.type === "image" ? (
-              <img
+              <OptimizedImage
                 src={popupItem.image}
                 alt={popupItem.title}
                 className="w-full max-h-[80vh] object-contain rounded-lg"
               />
             ) : (
-              <video
+              <OptimizedVideo
                 src={popupItem.src}
                 controls
                 autoPlay

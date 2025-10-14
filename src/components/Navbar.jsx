@@ -18,7 +18,7 @@ export default function Navbar() {
         href: "/projects/anugrahhomes",
         sub: [
           { name: "Visit Website", href: "https://anugrahhomes.com/" },
-          { name: "Key Plan ", href: "/projects/anugrahhomes/keypaln" },
+          { name: "Key Plan ", href: "/projects/anugrahhomes/keyplan" },
           { name: "Layout ", href: "/projects/anugrahhomes/layout" },
           { name: "Price List", href: "/projects/anugrahhomes/pricelist" },
           { name: "Download Brochure ", href: "https://drive.google.com/file/d/15psZuZVoH9PxFbfl7k1_J_vkET6h5AAs/preview", type: "download" },

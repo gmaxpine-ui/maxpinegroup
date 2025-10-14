@@ -48,11 +48,14 @@ export default function Footer() {
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-gray-300 text-sm">
                 <Phone className="w-4 h-4 text-[#20ae9b]" />
-                <span>+91-1204107573 ( Reception ) <br/> +91-9115253545</span>
+                <span>
+                  <a href="tel:+911204107573" className="hover:text-[#20ae9b] transition-colors">+91-1204107573 ( Reception )</a> <br/> 
+                  <a href="tel:+919115253545" className="hover:text-[#20ae9b] transition-colors">+91-9115253545</a>
+                </span>
               </div>
               <div className="flex items-center gap-2 text-gray-300 text-sm">
                 <Mail className="w-4 h-4 text-[#20ae9b]" />
-                <span>info@maxpinegroup.in</span>
+                <a href="mailto:info@maxpinegroup.in" className="hover:text-[#20ae9b] transition-colors">info@maxpinegroup.in</a>
               </div>
               <div className="flex items-start gap-2 text-gray-300 text-sm">
                 <MapPin className="w-4 h-4 text-[#20ae9b] mt-0.5" />
@@ -124,7 +127,7 @@ export default function Footer() {
                     href={social.href}
                     aria-label={social.label}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener noreferrer nofollow"
                     className="w-8 h-8 bg-gray-700 hover:bg-[#20ae9b] rounded-full flex items-center justify-center transition-all duration-200"
                   >
                     {social.icon}
