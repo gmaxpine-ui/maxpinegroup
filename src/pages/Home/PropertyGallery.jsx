@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import OptimizedImage from "../../components/OptimizedImage";
+import AdvancedImage from "../../components/AdvancedImage";
 import OptimizedVideo from "../../components/OptimizedVideo";
 import { imagePaths, videoPaths } from "../../utils/imageLoader";
 
@@ -117,10 +117,11 @@ export default function PropertyGallery() {
               <div className={`relative ${index % 8 === 0 || index % 8 === 3 ? "h-80 lg:h-[90vh]" : "h-60 lg:h-72"
                 }`}>
                 {item.type === "image" ? (
-                  <OptimizedImage
+                  <AdvancedImage
                     src={item.image}
                     alt={item.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 ) : (
                   <OptimizedVideo
@@ -176,10 +177,12 @@ export default function PropertyGallery() {
               ✕
             </button>
             {popupItem.type === "image" ? (
-              <OptimizedImage
+              <AdvancedImage
                 src={popupItem.image}
                 alt={popupItem.title}
                 className="w-full max-h-[80vh] object-contain rounded-lg"
+                sizes="100vw"
+                priority={true}
               />
             ) : (
               <OptimizedVideo
