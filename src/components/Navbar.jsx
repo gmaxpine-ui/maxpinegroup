@@ -1,15 +1,72 @@
 import { Phone, Mail, Clock, Lock, Menu, X, ChevronDown, ChevronRight } from "lucide-react";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
 import Anugrah from "../pages/Navbar/Anugrah";
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const [mobile, setMobile] = useState({ menu: false, open: {} });
   const [desktop, setDesktop] = useState({ main: null, nested: null });
+  const hoverTimeoutRef = useRef(null);
+  const clickTimeoutRef = useRef(null);
 
 
   const toggle = (key) =>
     setMobile((p) => ({ ...p, open: { ...p.open, [key]: !p.open[key] } }));
+
+  // Improved hover handling for MacBook trackpad compatibility
+  const handleMouseEnter = (itemName) => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    setDesktop((p) => ({ ...p, nested: itemName }));
+  };
+
+  const handleMouseLeave = () => {
+    hoverTimeoutRef.current = setTimeout(() => {
+      setDesktop((p) => ({ ...p, nested: null }));
+    }, 150); // Small delay to prevent flickering
+  };
+
+  // Improved click handling
+  const handleItemClick = async (item) => {
+    if (clickTimeoutRef.current) {
+      clearTimeout(clickTimeoutRef.current);
+    }
+    
+    if (item.type === "download") {
+      try {
+        const response = await fetch(item.href);
+        const blob = await response.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = blobUrl;
+        link.download = item.name.replace(/\s+/g, "_") + ".pdf";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(blobUrl);
+      } catch (error) {
+        console.error("Download failed:", error);
+        window.open(item.href, "_blank");
+      }
+    } else if (item.href.startsWith("http")) {
+      window.open(item.href, "_blank");
+    } else {
+      navigate(item.href);
+    }
+    
+    // Close dropdown after click
+    setDesktop({ main: null, nested: null });
+  };
+
+  // Cleanup timeouts on unmount
+  useEffect(() => {
+    return () => {
+      if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+      if (clickTimeoutRef.current) clearTimeout(clickTimeoutRef.current);
+    };
+  }, []);
 
   const menuData = {
     projects: [
@@ -114,83 +171,42 @@ export default function Navbar() {
           <div
             key={i}
             className="relative"
-            onMouseEnter={() => {
-              if (item.sub) {
-                setDesktop((p) => ({ ...p, nested: item.name, hoverCard: null }));
-              } else {
-                setDesktop((p) => ({ ...p, nested: null, hoverCard: null }));
-              }
-            }}
-            onMouseLeave={(e) => {
-              const related = e.relatedTarget;
-              // check if user is still inside the nested submenu
-              if (!related || !e.currentTarget.contains(related)) {
-                setDesktop((p) => ({ ...p, nested: null, hoverCard: null }));
-              }
-            }}
-
+            onMouseEnter={() => handleMouseEnter(item.name)}
+            onMouseLeave={handleMouseLeave}
           >
-            <a
-              href={item.href}
-              className={`flex items-center justify-between px-6 py-3 transition-colors duration-200 ${desktop.nested === item.name
+            <div
+              onClick={() => {
+                if (!item.sub) {
+                  handleItemClick(item);
+                }
+              }}
+              className={`navbar-dropdown dropdown-item flex items-center justify-between px-6 py-3 transition-colors duration-200 cursor-pointer ${desktop.nested === item.name
                   ? "bg-[#20ae9b] text-white"
                   : "text-gray-700 hover:bg-[#20ae9b] hover:text-white"
                 }`}
             >
-
               <span>{item.name}</span>
               {item.sub && <ChevronRight className="w-4 h-4" />}
-            </a>
+            </div>
             {item.sub && (
               <div
-                onMouseEnter={() =>
-                  setDesktop((p) => ({ ...p, nested: item.name }))
-                }
-                onMouseLeave={(e) => {
-                  const related = e.relatedTarget;
-                  if (!related || !e.currentTarget.contains(related)) {
-                    setDesktop((p) => ({ ...p, nested: null }));
-                  }
-                }}
+                onMouseEnter={() => handleMouseEnter(item.name)}
+                onMouseLeave={handleMouseLeave}
                 className={`absolute left-full top-0 w-56 bg-white shadow-lg border-l-3 border-[#20ae9b] transition-all duration-300 ${desktop.nested === item.name
                   ? "opacity-100 visible"
                   : "opacity-0 invisible"
                   }`}
               >
-
                 <div className="py-2">
                   {item.sub.map((s, j) => (
                     <div
                       key={j}
-                      onClick={async () => {
-                        if (s.type === "download") {
-                          try {
-                            const response = await fetch(s.href);
-                            const blob = await response.blob();
-                            const blobUrl = window.URL.createObjectURL(blob);
-                            const link = document.createElement("a");
-                            link.href = blobUrl;
-                            link.download = s.name.replace(/\s+/g, "_") + ".pdf";
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
-                            window.URL.revokeObjectURL(blobUrl);
-                          } catch (error) {
-                            console.error("Download failed:", error);
-                            window.open(s.href, "_blank");
-                          }
-                        } else {
-                          window.location.href = s.href;
-                        }
-                      }}
-
-
-                      className="block cursor-pointer px-6 py-3 text-gray-700 hover:bg-[#20ae9b] hover:text-white transition-colors duration-200"
+                      onClick={() => handleItemClick(s)}
+                      className="navbar-dropdown dropdown-item block cursor-pointer px-6 py-3 text-gray-700 hover:bg-[#20ae9b] hover:text-white transition-colors duration-200"
                     >
                       {s.name}
                     </div>
                   ))}
-
                 </div>
               </div>
             )}
@@ -245,24 +261,24 @@ export default function Navbar() {
                   >
                     <div className="ml-4 space-y-1 mt-1">
                       {item.sub.map((s, j) => (
-                        <a
+                        <div
                           key={j}
-                          href={s.href}
-                          className="block text-white hover:bg-[#272b24] transition-colors duration-200 py-2 px-3 rounded text-xs"
+                          onClick={() => handleItemClick(s)}
+                          className="block text-white hover:bg-[#272b24] transition-colors duration-200 py-2 px-3 rounded text-xs cursor-pointer"
                         >
                           {s.name}
-                        </a>
+                        </div>
                       ))}
                     </div>
                   </div>
                 </div>
               ) : (
-                <a
-                  href={item.href}
-                  className="block text-white hover:bg-[#272b24] transition-colors duration-200 py-2 px-3 rounded text-sm"
+                <div
+                  onClick={() => handleItemClick(item)}
+                  className="block text-white hover:bg-[#272b24] transition-colors duration-200 py-2 px-3 rounded text-sm cursor-pointer"
                 >
                   {item.name}
-                </a>
+                </div>
               )}
             </div>
           ))}
@@ -294,13 +310,13 @@ export default function Navbar() {
               <div className="flex items-stretch space-x-4 text-white font-medium">
                 {navConfig.map((item, i) =>
                   item.type === "link" ? (
-                    <a
+                    <Link
                       key={i}
-                      href={item.url}
-                      className="flex items-center hover:bg-[#27746a] px-4 transition-colors duration-200 "
+                      to={item.url}
+                      className="flex items-center hover:bg-[#27746a] px-4 transition-colors duration-200"
                     >
                       {item.label}
-                    </a>
+                    </Link>
                   ) : (
                     <div
                       key={i}
@@ -310,16 +326,10 @@ export default function Navbar() {
                       }
                       onMouseLeave={() => setDesktop({ main: null, nested: null })}
                     >
-                      <a
-                        href={item.url}
-                        className="flex items-center gap-1 hover:bg-[#27746a] px-4 transition-colors duration-200
-                        
-                        "
-
-                      >
+                      <div className="flex items-center gap-1 hover:bg-[#27746a] px-4 transition-colors duration-200 cursor-pointer">
                         {item.label}
                         <ChevronDown className="w-4 h-4" />
-                      </a>
+                      </div>
                       <Dropdown
                         items={menuData[item.key]}
                         active={desktop.main === item.key}
@@ -391,6 +401,55 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
+      
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        /* MacBook trackpad compatibility improvements */
+        .navbar-dropdown {
+          -webkit-touch-callout: none;
+          -webkit-user-select: none;
+          -khtml-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
+        
+        .navbar-dropdown:hover {
+          cursor: pointer;
+        }
+        
+        /* Prevent hover issues on touch devices */
+        @media (hover: none) {
+          .navbar-dropdown:hover {
+            background-color: inherit;
+          }
+        }
+        
+        /* Better focus states for accessibility */
+        .navbar-dropdown:focus {
+          outline: 2px solid #20ae9b;
+          outline-offset: 2px;
+        }
+        
+        /* Smooth transitions for better UX */
+        .dropdown-item {
+          transition: all 0.2s ease-in-out;
+        }
+        
+        .dropdown-item:hover {
+          transform: translateX(2px);
+        }
+      `}</style>
     </header>
   );
 }
