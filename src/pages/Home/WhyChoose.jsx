@@ -6,7 +6,7 @@ export default function WhyChoose() {
   
 
   return (
-    <section className="relative min-h-screen px-1 md:px-20 bg-cover bg-center bg-no-repeat" 
+    <section className=" flex flex-col items-center justify-center relative min-h-screen px-1 md:px-20 bg-cover bg-center bg-no-repeat" 
              style={{
                backgroundImage: "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=2073&auto=format&fit=crop')"
              }}>

@@ -1,6 +1,6 @@
 import { Phone, Mail, Clock, Lock, Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import Anugrah from "../pages/Navbar/Anugrah";
 
 export default function Navbar() {
@@ -9,29 +9,61 @@ export default function Navbar() {
   const [desktop, setDesktop] = useState({ main: null, nested: null });
   const hoverTimeoutRef = useRef(null);
   const clickTimeoutRef = useRef(null);
+  const isSafariRef = useRef(false);
+  const isMacRef = useRef(false);
 
 
   const toggle = (key) =>
     setMobile((p) => ({ ...p, open: { ...p.open, [key]: !p.open[key] } }));
 
-  // Improved hover handling for MacBook trackpad compatibility
-  const handleMouseEnter = (itemName) => {
+  // Detect Safari and Mac for compatibility fixes
+  useEffect(() => {
+    const userAgent = navigator.userAgent.toLowerCase();
+    isSafariRef.current = /safari/.test(userAgent) && !/chrome/.test(userAgent);
+    isMacRef.current = /macintosh|mac os x/.test(userAgent);
+  }, []);
+
+  // Safari-compatible hover handling
+  const handleMouseEnter = useCallback((itemName) => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
+    
+    // Immediate response for Safari
+    if (isSafariRef.current) {
+      setDesktop((p) => ({ ...p, nested: itemName }));
+    } else {
+      // Delayed response for other browsers
+      setTimeout(() => {
+        setDesktop((p) => ({ ...p, nested: itemName }));
+      }, 10);
+    }
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
     if (hoverTimeoutRef.current) {
       clearTimeout(hoverTimeoutRef.current);
     }
-    setDesktop((p) => ({ ...p, nested: itemName }));
-  };
-
-  const handleMouseLeave = () => {
+    
+    // Longer delay for Safari to prevent flickering
+    const delay = isSafariRef.current ? 300 : 150;
     hoverTimeoutRef.current = setTimeout(() => {
       setDesktop((p) => ({ ...p, nested: null }));
-    }, 150); // Small delay to prevent flickering
-  };
+    }, delay);
+  }, []);
 
-  // Improved click handling
-  const handleItemClick = async (item) => {
+  // Safari-compatible click handling
+  const handleItemClick = useCallback(async (item) => {
     if (clickTimeoutRef.current) {
       clearTimeout(clickTimeoutRef.current);
+    }
+    
+    // Prevent double-clicks on Safari
+    if (isSafariRef.current) {
+      clickTimeoutRef.current = setTimeout(() => {
+        clickTimeoutRef.current = null;
+      }, 500);
     }
     
     if (item.type === "download") {
@@ -42,6 +74,7 @@ export default function Navbar() {
         const link = document.createElement("a");
         link.href = blobUrl;
         link.download = item.name.replace(/\s+/g, "_") + ".pdf";
+        link.style.display = "none";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -58,7 +91,7 @@ export default function Navbar() {
     
     // Close dropdown after click
     setDesktop({ main: null, nested: null });
-  };
+  }, [navigate]);
 
   // Cleanup timeouts on unmount
   useEffect(() => {
@@ -135,7 +168,7 @@ export default function Navbar() {
       { name: "Anugrah homes", href: "/developments/anugrahhomes" },
       { name: "Skyline Aero homes", href: "/developments/skyline-aero-homes" },
       { name: "Brij Vrinda", href: "/developments/brij_vrinda" },
-      { name: "The club Farm", href: "/developments/the_club_farm" },
+      { name: "The Club Farm", href: "/developments/the_club_farm" },
       // { name: "Personal Rapid Transit - pod Taxi", href: "/personal-rapid-transit" },
     ],
     updates: [
@@ -161,7 +194,7 @@ export default function Navbar() {
 
   const Dropdown = ({ items, active, width }) => (
     <div
-      className={`absolute top-full left-0 ${width} bg-white shadow-lg border-t-3 border-[#20ae9b] transition-all duration-300 z-50 ${active
+      className={`absolute top-full left-0 ${width} bg-white shadow-lg border-t-3 border-[#20ae9b] transition-all duration-300 z-50 safari-dropdown ${active
         ? "opacity-100 visible translate-y-0"
         : "opacity-0 invisible -translate-y-2"
         }`}
@@ -170,17 +203,32 @@ export default function Navbar() {
         {items.map((item, i) => (
           <div
             key={i}
-            className="relative"
+            className="relative safari-dropdown-item"
             onMouseEnter={() => handleMouseEnter(item.name)}
             onMouseLeave={handleMouseLeave}
+            onTouchStart={() => {
+              // Handle touch events for mobile Safari
+              if (isSafariRef.current) {
+                handleMouseEnter(item.name);
+              }
+            }}
           >
             <div
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 if (!item.sub) {
                   handleItemClick(item);
                 }
               }}
-              className={`navbar-dropdown dropdown-item flex items-center justify-between px-6 py-3 transition-colors duration-200 cursor-pointer ${desktop.nested === item.name
+              onTouchEnd={(e) => {
+                // Handle touch events for mobile Safari
+                if (isSafariRef.current && !item.sub) {
+                  e.preventDefault();
+                  handleItemClick(item);
+                }
+              }}
+              className={`navbar-dropdown dropdown-item flex items-center justify-between px-6 py-3 transition-colors duration-200 cursor-pointer safari-clickable ${desktop.nested === item.name
                   ? "bg-[#20ae9b] text-white"
                   : "text-gray-700 hover:bg-[#20ae9b] hover:text-white"
                 }`}
@@ -192,7 +240,12 @@ export default function Navbar() {
               <div
                 onMouseEnter={() => handleMouseEnter(item.name)}
                 onMouseLeave={handleMouseLeave}
-                className={`absolute left-full top-0 w-56 bg-white shadow-lg border-l-3 border-[#20ae9b] transition-all duration-300 ${desktop.nested === item.name
+                onTouchStart={() => {
+                  if (isSafariRef.current) {
+                    handleMouseEnter(item.name);
+                  }
+                }}
+                className={`absolute left-full top-0 w-56 bg-white shadow-lg border-l-3 border-[#20ae9b] transition-all duration-300 safari-submenu ${desktop.nested === item.name
                   ? "opacity-100 visible"
                   : "opacity-0 invisible"
                   }`}
@@ -201,8 +254,18 @@ export default function Navbar() {
                   {item.sub.map((s, j) => (
                     <div
                       key={j}
-                      onClick={() => handleItemClick(s)}
-                      className="navbar-dropdown dropdown-item block cursor-pointer px-6 py-3 text-gray-700 hover:bg-[#20ae9b] hover:text-white transition-colors duration-200"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleItemClick(s);
+                      }}
+                      onTouchEnd={(e) => {
+                        if (isSafariRef.current) {
+                          e.preventDefault();
+                          handleItemClick(s);
+                        }
+                      }}
+                      className="navbar-dropdown dropdown-item block cursor-pointer px-6 py-3 text-gray-700 hover:bg-[#20ae9b] hover:text-white transition-colors duration-200 safari-clickable"
                     >
                       {s.name}
                     </div>
@@ -320,13 +383,18 @@ export default function Navbar() {
                   ) : (
                     <div
                       key={i}
-                      className="relative group flex items-stretch"
+                      className="relative group flex items-stretch safari-nav-item"
                       onMouseEnter={() =>
                         setDesktop({ main: item.key, nested: null })
                       }
                       onMouseLeave={() => setDesktop({ main: null, nested: null })}
+                      onTouchStart={() => {
+                        if (isSafariRef.current) {
+                          setDesktop({ main: item.key, nested: null });
+                        }
+                      }}
                     >
-                      <div className="flex items-center gap-1 hover:bg-[#27746a] px-4 transition-colors duration-200 cursor-pointer">
+                      <div className="flex items-center gap-1 hover:bg-[#27746a] px-4 transition-colors duration-200 cursor-pointer safari-clickable">
                         {item.label}
                         <ChevronDown className="w-4 h-4" />
                       </div>
@@ -414,6 +482,48 @@ export default function Navbar() {
           }
         }
         
+        /* Safari and Cross-Browser Compatibility */
+        .safari-dropdown {
+          -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+          will-change: opacity, transform;
+        }
+        
+        .safari-dropdown-item {
+          -webkit-tap-highlight-color: transparent;
+          -webkit-touch-callout: none;
+          -webkit-user-select: none;
+          -khtml-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
+        
+        .safari-clickable {
+          -webkit-tap-highlight-color: transparent;
+          -webkit-touch-callout: none;
+          cursor: pointer;
+          position: relative;
+        }
+        
+        .safari-clickable:active {
+          -webkit-transform: scale(0.98);
+          transform: scale(0.98);
+        }
+        
+        .safari-submenu {
+          -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+        }
+        
+        .safari-nav-item {
+          -webkit-tap-highlight-color: transparent;
+        }
+        
         /* MacBook trackpad compatibility improvements */
         .navbar-dropdown {
           -webkit-touch-callout: none;
@@ -433,6 +543,22 @@ export default function Navbar() {
           .navbar-dropdown:hover {
             background-color: inherit;
           }
+          
+          .safari-clickable:hover {
+            background-color: inherit;
+          }
+        }
+        
+        /* Safari-specific hover fixes */
+        @media screen and (-webkit-min-device-pixel-ratio: 0) {
+          .safari-dropdown-item:hover {
+            background-color: #20ae9b !important;
+            color: white !important;
+          }
+          
+          .safari-clickable:hover {
+            background-color: #27746a !important;
+          }
         }
         
         /* Better focus states for accessibility */
@@ -441,13 +567,54 @@ export default function Navbar() {
           outline-offset: 2px;
         }
         
+        .safari-clickable:focus {
+          outline: 2px solid #20ae9b;
+          outline-offset: 2px;
+        }
+        
         /* Smooth transitions for better UX */
         .dropdown-item {
           transition: all 0.2s ease-in-out;
+          -webkit-transition: all 0.2s ease-in-out;
         }
         
         .dropdown-item:hover {
           transform: translateX(2px);
+          -webkit-transform: translateX(2px);
+        }
+        
+        /* Safari-specific animation fixes */
+        @media screen and (-webkit-min-device-pixel-ratio: 0) {
+          .safari-dropdown {
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            -webkit-transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+          }
+          
+          .safari-submenu {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            -webkit-transition: opacity 0.3s ease, visibility 0.3s ease;
+          }
+        }
+        
+        /* Mobile Safari fixes */
+        @media screen and (max-width: 768px) {
+          .safari-clickable {
+            -webkit-tap-highlight-color: rgba(32, 174, 155, 0.3);
+          }
+          
+          .safari-dropdown-item {
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+          }
+        }
+        
+        /* High DPI display fixes */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+          .safari-dropdown {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+          }
         }
       `}</style>
     </header>

@@ -212,7 +212,7 @@ function App() {
 
 
         <Route path="/developments/anugrahhomes" element={<Development_AH />} />
-        <Route path="/developments/skyline" element={<DevelopmentSK />} />
+        <Route path="/developments/skyline-aero-homes" element={<DevelopmentSK />} />
         <Route path="/developments/brij_vrinda" element={<Development />} />
         <Route path="/developments/the_club_farm" element={<Development_CF />} />
 
