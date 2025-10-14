@@ -19,9 +19,20 @@ import brij from "../../assets/BrijVrinda/1.jpg"
 import sky from "../../assets/skyline/skylogo.jpeg"
 import club from "../../assets/ClubForm/Club-logo.png"
 import banner_CF from "../../assets/ClubForm/banner-CF.png"
-import Anugrah_vid from "../../assets/video.mp4";
-import Sky_vid from "../../assets/skyline/3.mp4"
-import club_vid from "../../assets/ClubForm/club-vid.mp4"
+
+// Use dynamic video loading to avoid build issues
+const getVideoUrl = (videoName) => {
+  switch(videoName) {
+    case 'anugrah':
+      return '/src/assets/video.mp4';
+    case 'skyline':
+      return '/src/assets/skyline/3.mp4';
+    case 'club':
+      return '/src/assets/ClubForm/club-vid.mp4';
+    default:
+      return '';
+  }
+};
 
 // Use external video URLs for better performance
 const brij_videos = "https://ik.imagekit.io/16pq4do9s/assets/BrijVrinda/Brij%20Vrinda_18Aug25%20(1)%20(1)%20(1)%20(1).mp4?updatedAt=1759845746168"
@@ -37,7 +48,7 @@ const slides = [
     acer:"Per Sq. Yards",
     logo:anulogo,
     wedt:true,
-    video: Anugrah_vid,
+    video: getVideoUrl('anugrah'),
   },
   {
     id: 2,
@@ -49,7 +60,7 @@ const slides = [
      acer:"Per Sq. Yards",
      logo:skylogo,
 
-    video: Sky_vid,
+    video: getVideoUrl('skyline'),
   },
   {
     id: 3,
@@ -71,7 +82,7 @@ const slides = [
     description: "Strategic locations with high appreciation potential and premium amenities",
      acer:"Per Sq. Yards",
      logo:club,
-    video: club_vid,
+    video: getVideoUrl('club'),
   },
 ];
 
