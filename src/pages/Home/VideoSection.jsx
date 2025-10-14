@@ -1,6 +1,8 @@
 import { Play, Pause, Volume2, VolumeX, Maximize2, X } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
-import vid from "../../assets/video.mp4";
+
+// Use dynamic video URL to avoid build issues
+const videoUrl = "/src/assets/video.mp4";
 
 export default function VideoSection() {
   const videoRef = useRef(null);
@@ -99,7 +101,7 @@ export default function VideoSection() {
               {/* Video */}
               <video
                 ref={videoRef}
-                src={vid}
+                src={videoUrl}
                 className="object-cover w-full h-full"
                 muted={isMuted}
               />
