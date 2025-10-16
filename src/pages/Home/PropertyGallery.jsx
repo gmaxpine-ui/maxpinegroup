@@ -535,7 +535,7 @@ export default function PropertyGallery() {
         </div>
       )}
 
-      <style jsx>{`
+      <style>{`
         @keyframes fadeInUp {
           from {
             opacity: 0;

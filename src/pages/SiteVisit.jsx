@@ -94,9 +94,12 @@ switch (formData.property) {
         emailData,
         "jr9fqioLswz6tdy46"
       );
-       nav("/thankyou")
+      
       // Send data to backend API
-      await axios.post("https://rushclick-crm.onrender.com/api/website-lead/create-website-lead", {
+      const apiUrl = 'https://rushclick-crm.onrender.com/api/website-lead/leads/max_4lco9j6c';
+      console.log("Sending to API:", apiUrl);
+
+        const apiData = {
         name: formData.name,
         phone: formData.phone,
         email: formData.email,
@@ -105,9 +108,13 @@ switch (formData.property) {
         Message: formData.message ,
         Date: formData.date ,
         Time: formData.time ,
-        status: 'New',
-        lead_source: formData.property,
-      });
+        lead_source: "Maxpine Group",
+        subsource:"Booking Visit Site"
+      };
+      
+      const response = await axios.post(apiUrl, apiData);
+
+      nav("/thankyou")
 
     } catch (error) {
       console.error("Error sending data:", error);

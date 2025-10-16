@@ -1,4 +1,4 @@
-import { useState,  useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { MapPin, Phone, Mail, Clock, Send, Home, X, CheckCircle } from 'lucide-react';
 import {  useNavigate } from "react-router-dom";
 import emailjs from '@emailjs/browser';
@@ -16,6 +16,7 @@ export default function Contact() {
     phone: '',
     propertyType: '',
     customProperty: '',
+    projectName: '',
     message: ''
   });
   // const [submitted, setSubmitted] = useState(false);
@@ -23,6 +24,13 @@ export default function Contact() {
 
   // const [showPopup, setShowPopup] = useState(false);
   const [errors, setErrors] = useState({});
+
+  // Set projectName when webName changes
+  useEffect(() => {
+    if (webName) {
+      setFormData(prev => ({ ...prev, projectName: webName }));
+    }
+  }, [webName]);
 
   const EMAILJS_SERVICE_ID = 'service_cnlusd3';
   const EMAILJS_TEMPLATE_ID = 'template_fvbpbue';
@@ -83,6 +91,11 @@ export default function Contact() {
       newErrors.customProperty = 'Please specify your custom requirement';
     }
 
+    // Project name validation (only if webName is not set)
+    if (!webName && !formData.projectName) {
+      newErrors.projectName = 'Please select a project';
+    }
+
     // Message validation
     if (!formData.message.trim()) {
       newErrors.message = 'Message is required';
@@ -104,6 +117,7 @@ export default function Contact() {
   Name: ${formData.name}
   Email: ${formData.email}
   Phone: ${formData.phone}  
+  subsource: Contact Us,
   Project Interested In: ${formData.projectName}
   Property Type: ${formData.propertyType === 'custom' ? formData.customProperty : formData.propertyType}
   Message: ${formData.message}
@@ -124,6 +138,10 @@ export default function Contact() {
     }
 
     try {
+      console.log("Form data being submitted:", formData);
+      console.log("webName context:", webName);
+      console.log("projectName in formData:", formData.projectName);
+      
       // Send via EmailJS
       await emailjs.send(
         EMAILJS_SERVICE_ID,       // replace with your EmailJS service ID
@@ -132,39 +150,54 @@ export default function Contact() {
         EMAILJS_PUBLIC_KEY        // replace with your EmailJS public key
       );
 
-      // setShowPopup(true);
-      nav("/thankyou");
+      console.log("EmailJS sent successfully");
+
       // Send via your API
-      await axios.post('https://rushclick-crm.onrender.com/api/website-lead/create-website-lead', {
+      const apiUrl = 'https://rushclick-crm.onrender.com/api/website-lead/leads/max_4lco9j6c';
+      console.log("Sending to API:", apiUrl);
+      
+      // Ensure we have a project name
+      const projectName = 'Maxpine Group';
+      
+      const apiData = {
         name: formData.name,
         phone: formData.phone,
         email: formData.email,
-        propertyType: formData.propertyType,
+        lead_source: projectName,
         message: formData.message,
-        date: userDate,
-        time: userTime,
-        status: 'New',
-        lead_source: formData.projectName,
-      }); // replace with your backend API endpoint
+        propertyType: formData.propertyType === 'custom' ? formData.customProperty : formData.propertyType,
+        subsource: "Contact Us",
+        
+      };
+      
+      console.log("API payload:", apiData);
+      
+      const response = await axios.post(apiUrl, apiData);
+      console.log("API response:", response.data);
 
+      // setShowPopup(true);
+      nav("/thankyou");
 
-      setFormData({ name: '', email: '', phone: '', propertyType: '', message: '' });
-
-      setTimeout(() => setSubmitted(false), 3000);
+      setFormData({ name: '', email: '', phone: '', propertyType: '', customProperty: '', projectName: '', message: '' });
     } catch (error) {
       console.error("Error sending form:", error);
-      alert("Something went wrong. Please try again later.");
+      console.error("Error details:", {
+        message: error.message,
+        status: error.response?.status,
+        statusText: error.response?.statusText,
+        data: error.response?.data,
+        config: error.config
+      });
+      
+      if (error.response?.status === 404) {
+        alert("API endpoint not found. Please check the server configuration.");
+      } else if (error.response?.status >= 500) {
+        alert("Server error. Please try again later.");
+      } else {
+        alert("Something went wrong. Please try again later.");
+      }
     }
   };
-
-
-
-
-
-
-
-
-
 
 
 
@@ -375,6 +408,8 @@ export default function Contact() {
 
                     <select
                       name="projectName"
+                      value={formData.projectName}
+                      onChange={handleChange}
                       disabled={!!webName} // ✅ Disable if webName exists
                       className={`w-full px-4 py-3 border rounded-lg text-slate-600 ${webName
                           ? "bg-gray-100 text-gray-600 cursor-not-allowed"
@@ -395,6 +430,7 @@ export default function Contact() {
                         </>
                       )}
                     </select>
+                    {!webName && errors.projectName && <p className="text-red-500 text-sm mt-1">{errors.projectName}</p>}
                   </div>
 
                 </div>

@@ -1,12 +1,13 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import {   useNavigate } from 'react-router-dom';
 import { Calendar, User, ArrowLeft, Clock, Share2, Facebook, Twitter, Linkedin, Link2 } from 'lucide-react';
 import { useState } from 'react';
+import SEO from '../../components/SEO';
 // import blog1 from "../../assets/BrijVrinda/6.jpeg"
 // import blog2 from "../../assets/BrijVrinda/1.jpg"
 
 
 // import img1 from "../../assets/All home imgs/Gate-1170x785.png"
-import img2 from "../../assets/All home imgs/upadate-34.jpeg"
+// import img2 from "../../assets/All home imgs/upadate-34.jpeg"
 import img3 from "../../assets/All home imgs/update-05.jpeg"
 import img4 from "../../assets/All home imgs/update-23.jpeg"
 
@@ -179,7 +180,17 @@ export default function ThirdBlog() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <>
+      <SEO
+        title="The Home Buying Process: A Comprehensive Step-by-Step Guide | Maxpine Group"
+        description="Complete guide to buying plots and homes near Noida International Airport. Learn the step-by-step process, legal verification, and investment benefits with Maxpine Group."
+        keywords="home buying process, plot buying guide, real estate investment, Noida International Airport, Maxpine Group, property investment guide"
+        canonicalUrl="https://www.maxpinegroup.in/updates/blogs/home-buying-process-guide/"
+        ogImage={blog.image}
+        ogType="article"
+        twitterCard="summary_large_image"
+      />
+      <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <div className="relative md:h-[80vh] bg-gray-900">
         <img 
@@ -320,7 +331,7 @@ export default function ThirdBlog() {
       
       </div>
 
-      <style jsx>{`
+      <style>{`
         .prose h2 {
           color: #1f2937;
           font-size: 1.875rem;
@@ -343,5 +354,6 @@ export default function ThirdBlog() {
         }
       `}</style>
     </div>
+    </>
   );
 }

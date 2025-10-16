@@ -328,23 +328,18 @@ export default function NoidaInternational() {
               <h3 className="text-xl font-bold text-gray-900 mb-4">
                 Related Posts
               </h3>
-              <Link to={"/updates/noida-international-airport/media"}>
-             
               <ul className="space-y-3">
                 {relatedPosts.map((post, index) => (
                   <li key={index}>
-                    <a 
-                      href="/updates/noida-international-airport/media" 
-                      className="text-gray-700
-                       hover:text-[#20ae9b] transition text-sm leading-relaxed block py-2 border-b border-gray-100 last:border-0"
+                    <Link 
+                      to="/updates/noida-international-airport/media" 
+                      className="text-gray-700 hover:text-[#20ae9b] transition text-sm leading-relaxed block py-2 border-b border-gray-100 last:border-0"
                     >
                       {post}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
-
- </Link>
               {/* Contact CTA */}
               <div className="mt-8 bg-gradient-to-br from-[#20ae9b] to-[#108878] rounded-lg p-6 text-white">
                 <h4 className="text-lg font-bold mb-2">Interested in Plots Near Airport?</h4>

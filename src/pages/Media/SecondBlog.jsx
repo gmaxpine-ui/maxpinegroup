@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { Calendar, User, ArrowLeft, Clock, Share2, Facebook, Twitter, Linkedin, Link2 } from 'lucide-react';
 import { useState } from 'react';
+import SEO from '../../components/SEO';
 // import blog1 from "../../assets/BrijVrinda/6.jpeg"
 // import blog2 from "../../assets/BrijVrinda/1.jpg"
 
@@ -299,7 +300,17 @@ export default function SecondBlog() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <>
+      <SEO
+        title="Plots Near Noida International Airport – Anugrah Homes by Maxpine Group"
+        description="Premium residential plots near Noida International Airport (Jewar Airport). Anugrah Homes by Maxpine Group offers strategic connectivity, world-class amenities, and high ROI potential."
+        keywords="plots near airport, residential plots Noida, Anugrah Homes, Noida International Airport, Jewar Airport, Maxpine Group, real estate investment"
+        canonicalUrl="https://www.maxpinegroup.in/updates/blogs/plots-near-noida-international-airport/"
+        ogImage={blog.image}
+        ogType="article"
+        twitterCard="summary_large_image"
+      />
+      <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <div className="relative md:h-[80vh] bg-gray-900">
         <img 
@@ -440,7 +451,7 @@ export default function SecondBlog() {
       
       </div>
 
-      <style jsx>{`
+      <style>{`
         .prose h2 {
           color: #1f2937;
           font-size: 1.875rem;
@@ -463,5 +474,6 @@ export default function SecondBlog() {
         }
       `}</style>
     </div>
+    </>
   );
 }

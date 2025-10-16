@@ -85,11 +85,12 @@ export default function Popup() {
             );
 
             // 2 Send data to your backend API
-            await axios.post('https://rushclick-crm.onrender.com/api/website-lead/create-website-lead', {
+            await axios.post('https://rushclick-crm.onrender.com/api/website-lead/leads/max_4lco9j6c', {
                 name: `${formData.firstName} ${formData.lastName}`,
                 phone: formData.phone,
                 email: formData.email,
                 city: formData.city,
+                subsource:"Maxpine Group Popup",
                 lead_source: 'Maxpine Group ',
             });
 

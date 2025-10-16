@@ -210,7 +210,7 @@ const vid1 = "https://ik.imagekit.io/16pq4do9s/assets/skyline/1.mp4?updatedAt=17
           </div>
 
           {/* Sidebar */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 pb-10">
             <div className="bg-white rounded-lg shadow-md p-6 top-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-4 border-b-2 border-[#20ae9b]">
                 Recent Posts

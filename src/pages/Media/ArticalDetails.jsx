@@ -1,6 +1,7 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Calendar, User, ArrowLeft, Clock, Share2, Facebook, Twitter, Linkedin, Link2 } from 'lucide-react';
 import { useState } from 'react';
+import SEO from '../../components/SEO';
 import blog1 from "../../assets/BrijVrinda/6.jpeg"
 import blog2 from "../../assets/BrijVrinda/1.jpg"
 
@@ -374,7 +375,17 @@ export default function ArticalDetails() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <>
+      <SEO
+        title={blog.title}
+        description={`Read our latest blog about ${blog.title}. Get insights on real estate investment, property trends, and development updates from Maxpine Group.`}
+        keywords="real estate blog, property investment, Maxpine Group, real estate news, property trends, development updates"
+        canonicalUrl={`https://www.maxpinegroup.in/updates/blogs/${id}/`}
+        ogImage={blog.image}
+        ogType="article"
+        twitterCard="summary_large_image"
+      />
+      <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <div className="relative md:h-[80vh] bg-gray-900">
         <img 
@@ -515,7 +526,7 @@ export default function ArticalDetails() {
       
       </div>
 
-      <style jsx>{`
+      <style>{`
         .prose h2 {
           color: #1f2937;
           font-size: 1.875rem;
@@ -538,5 +549,6 @@ export default function ArticalDetails() {
         }
       `}</style>
     </div>
+    </>
   );
 }

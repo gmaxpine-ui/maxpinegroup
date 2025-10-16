@@ -72,7 +72,7 @@ export default function BrijVrindaProjects() {
       </div>
 
       {/* CSS Animation */}
-      <style jsx>{`
+      <style>{`
         @keyframes pulse {
           0%, 100% {
             opacity: 0.3;

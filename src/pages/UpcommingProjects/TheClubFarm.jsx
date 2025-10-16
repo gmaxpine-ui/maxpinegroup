@@ -80,7 +80,7 @@ export default function TheClubFarm() {
       </div>
 
       {/* CSS Animation */}
-      <style jsx>{`
+      <style>{`
         @keyframes pulse {
           0%, 100% {
             opacity: 0.3;

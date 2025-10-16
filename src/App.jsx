@@ -53,6 +53,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import ThankYou from "./components/ThankYou";
 import SecondBlog from "./pages/Media/SecondBlog";
 import ThirdBlog from "./pages/Media/ThirdBlog";
+import FourthBlog from "./pages/Media/FourthBlog";
 
 function App() {
   const location = useLocation();
@@ -230,6 +231,7 @@ function App() {
         <Route path="/buy-plots-near-jewar-airport/" element={<ArticalDetails />} />
         <Route path="/property/plots-near-noida-international-airport/" element={<SecondBlog />} />
         <Route path="/nia/" element={<ThirdBlog />} />
+        <Route path="/updates/blogs/authority-plots-near-jewar-airport/" element={<FourthBlog />} />
 
 
         <Route path="*" element={<Page_404 />} />
