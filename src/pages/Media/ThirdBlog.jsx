@@ -147,7 +147,20 @@ export default function ThirdBlog() {
       category: "Investment",
       image: img4,
       content: `
-        <h2>The Home Buying Process: A Comprehensive Step-by-Step Guide</h2> <p>Buying a home or plot is one of the most important financial decisions of your life. Whether you are a first-time buyer or an experienced investor, understanding the complete process helps you make smart and confident choices. Projects like <strong>Anugrah Homes by Maxpine Group</strong> near <strong>Noida International Airport (Jewar Airport)</strong> make this journey seamless and rewarding with transparency, location advantage, and trusted development.</p> <h3>1. Define Your Budget and Goals</h3> <p>Start by evaluating your finances and setting a realistic budget. Decide whether you want a <strong>residential plot</strong> to build your dream home or a <strong>commercial plot</strong> for long-term returns. Always include an additional 10–15% for registration, taxes, and other charges.</p> <h3>2. Research the Location</h3> <p>Location is the foundation of real estate success. Areas surrounding <strong>Noida International Airport (Jewar)</strong> are rapidly developing with expressways, metro connectivity, and industrial projects. This ensures strong appreciation and high return on investment. <strong>Anugrah Homes</strong> enjoys proximity to:</p> <ul> <li>Yamuna Expressway and Delhi–Mumbai Expressway</li> <li>Upcoming Film City and Metro Expansion</li> <li>Educational and business hubs</li> <li>Green and peaceful surroundings</li> </ul> <h3>3. Shortlist Trusted Developers</h3> <p>Always choose reputed builders with a proven record. <strong>Maxpine Group</strong> stands out for delivering quality projects, clear documentation, and transparent dealings. Their project, <strong>Anugrah Homes</strong>, offers freehold plots designed for investors and homeowners alike.</p> <h3>4. Visit the Site</h3> <p>Visiting the property personally helps you evaluate ground reality. Observe road access, surrounding developments, and nearby amenities. <strong>Anugrah Homes</strong> offers well-planned internal roads, gated security, green parks, and close proximity to schools, hospitals, and commercial zones.</p> <h3>5. Verify Legal Documents</h3> <p>Before investing, ensure all approvals and legal papers are clear:</p> <ul> <li>RERA registration</li> <li>Land ownership and title deeds</li> <li>Layout and government approvals</li> <li>Payment and possession terms</li> </ul> <p><strong>Anugrah Homes</strong> maintains complete transparency with verified legal documentation and freehold ownership.</p> <h3>6. Booking and Payment Process</h3> <p>Once satisfied with the project, proceed with the booking. The payment plan at <strong>Anugrah Homes</strong> is customer-friendly:</p> <ul> <li><strong>Booking Amount:</strong> 10%</li> <li><strong>Within 15 Days:</strong> 40%</li> <li><strong>Within 60 Days or at Registry:</strong> 50%</li> </ul> <p>This structured plan helps you manage finances comfortably while securing your plot early.</p> <h3>7. Registration and Handover</h3> <p>After payment, registration takes place at the sub-registrar office. Once the property is registered in your name, you become the legal owner of your plot. <strong>Anugrah Homes</strong> ensures a smooth handover with complete paperwork and possession assistance.</p> <h3>8. Plan Your Dream Home</h3> <p>After possession, you can design and construct your dream home or set up your business space. The site offers modern infrastructure including:</p> <ul> <li>30 & 40 feet wide internal roads</li> <li>Clubhouse, jogging tracks, and landscaped parks</li> <li>24×7 security and gated community</li> <li>Eco-friendly features like rainwater harvesting and solar lighting</li> </ul> <h3>9. Monitor Growth and Appreciation</h3> <p>The <strong>Jewar Airport region</strong> is expected to become one of North India’s biggest economic zones. With every phase of airport expansion, road improvement, and metro development, property prices are set to grow significantly. Early investors will benefit from strong appreciation and rental potential.</p> <h2>Why Buy with Maxpine Group?</h2> <p><strong>Maxpine Group</strong> has built a reputation for reliability, modern design, and customer trust. Their project, <strong>Anugrah Homes</strong>, provides a balanced lifestyle combining convenience, sustainability, and investment value.</p> <ul> <li>Prime location near Noida International Airport</li> <li>Premium residential and commercial plots</li> <li>World-class amenities and infrastructure</li> <li>Eco-friendly, sustainable planning</li> <li>High ROI and long-term appreciation</li> </ul> <h2>Conclusion</h2> <p>Buying a home or plot doesn’t have to be complicated — it just needs the right guidance and developer. <strong>Anugrah Homes by Maxpine Group</strong> simplifies every step, from selection to possession, ensuring a secure, transparent, and profitable investment. With its unbeatable location near <strong>Noida International Airport (Jewar)</strong>, modern infrastructure, and growing demand, this is your chance to own a piece of India’s most promising real estate destination.</p>
+        <h2>The Home Buying Process: A Comprehensive Step-by-Step Guide</h2> 
+        
+        <p>Buying a home or plot is one of the most important financial decisions of your life. Whether you are a first-time buyer or an experienced investor, understanding the complete process helps you make smart and confident choices.</p>
+        
+        <p>Projects like <strong>Anugrah Homes by Maxpine Group</strong> near <strong>Noida International Airport (Jewar Airport)</strong> make this journey seamless and rewarding with transparency, location advantage, and trusted development.</p> <h3>1. Define Your Budget and Goals</h3> <p>Start by evaluating your finances and setting a realistic budget. Decide whether you want a <strong>residential plot</strong> to build your dream home or a <strong>commercial plot</strong> for long-term returns. Always include an additional 10–15% for registration, taxes, and other charges.</p> <h3>2. Research the Location</h3> <p>Location is the foundation of real estate success. Areas surrounding <strong>Noida International Airport (Jewar)</strong> are rapidly developing with expressways, metro connectivity, and industrial projects. This ensures strong appreciation and high return on investment. <strong>Anugrah Homes</strong> enjoys proximity to:</p> <ul> <li>Yamuna Expressway and Delhi–Mumbai Expressway</li> <li>Upcoming Film City and Metro Expansion</li> <li>Educational and business hubs</li> <li>Green and peaceful surroundings</li> </ul> <h3>3. Shortlist Trusted Developers</h3> <p>Always choose reputed builders with a proven record. <strong>Maxpine Group</strong> stands out for delivering quality projects, clear documentation, and transparent dealings. Their project, <strong>Anugrah Homes</strong>, offers freehold plots designed for investors and homeowners alike.</p> <h3>4. Visit the Site</h3> <p>Visiting the property personally helps you evaluate ground reality. Observe road access, surrounding developments, and nearby amenities. <strong>Anugrah Homes</strong> offers well-planned internal roads, gated security, green parks, and close proximity to schools, hospitals, and commercial zones.</p> <h3>5. Verify Legal Documents</h3> <p>Before investing, ensure all approvals and legal papers are clear:</p> <ul> <li>RERA registration</li> <li>Land ownership and title deeds</li> <li>Layout and government approvals</li> <li>Payment and possession terms</li> </ul> <p><strong>Anugrah Homes</strong> maintains complete transparency with verified legal documentation and freehold ownership.</p> <h3>6. Booking and Payment Process</h3> <p>Once satisfied with the project, proceed with the booking. The payment plan at <strong>Anugrah Homes</strong> is customer-friendly:</p> <ul> <li><strong>Booking Amount:</strong> 10%</li> <li><strong>Within 15 Days:</strong> 40%</li> <li><strong>Within 60 Days or at Registry:</strong> 50%</li> </ul> <p>This structured plan helps you manage finances comfortably while securing your plot early.</p> <h3>7. Registration and Handover</h3> <p>After payment, registration takes place at the sub-registrar office. Once the property is registered in your name, you become the legal owner of your plot. <strong>Anugrah Homes</strong> ensures a smooth handover with complete paperwork and possession assistance.</p> <h3>8. Plan Your Dream Home</h3> <p>After possession, you can design and construct your dream home or set up your business space. The site offers modern infrastructure including:</p> <ul> <li>30 & 40 feet wide internal roads</li> <li>Clubhouse, jogging tracks, and landscaped parks</li> <li>24×7 security and gated community</li> <li>Eco-friendly features like rainwater harvesting and solar lighting</li> </ul> <h3>9. Monitor Growth and Appreciation</h3> <p>The <strong>Jewar Airport region</strong> is expected to become one of North India’s biggest economic zones. With every phase of airport expansion, road improvement, and metro development, property prices are set to grow significantly. Early investors will benefit from strong appreciation and rental potential.</p> <h2>Why Buy with Maxpine Group?</h2> <p><strong>Maxpine Group</strong> has built a reputation for reliability, modern design, and customer trust. Their project, <strong>Anugrah Homes</strong>, provides a balanced lifestyle combining convenience, sustainability, and investment value.</p> <ul> <li>Prime location near Noida International Airport</li> <li>Premium residential and commercial plots</li> <li>World-class amenities and infrastructure</li> <li>Eco-friendly, sustainable planning</li> <li>High ROI and long-term appreciation</li> </ul> <h2>Conclusion</h2> <p>Buying a home or plot doesn't have to be complicated — it just needs the right guidance and developer. <strong>Anugrah Homes by Maxpine Group</strong> simplifies every step, from selection to possession, ensuring a secure, transparent, and profitable investment. With its unbeatable location near <strong>Noida International Airport (Jewar)</strong>, modern infrastructure, and growing demand, this is your chance to own a piece of India's most promising real estate destination.</p>
+
+<div class="bg-gradient-to-r from-[#20ae9b] to-[#108878] rounded-lg p-6 text-white my-8">
+  <h3 class="text-xl font-bold mb-3">📋 Start Your Investment Journey</h3>
+  <p class="mb-4">Ready to make your first smart real estate investment? Follow our proven process with Anugrah Homes by Maxpine Group.</p>
+  <div class="flex flex-col sm:flex-row gap-3">
+    <a href="/projects/anugrahhomes" class="bg-white text-[#20ae9b] px-6 py-3 rounded-lg font-semibold text-center hover:bg-gray-100 transition-colors">Explore Plots</a>
+    <a href="/contact" class="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold text-center hover:bg-white hover:text-[#20ae9b] transition-colors">Get Expert Advice</a>
+  </div>
+</div>
 
 
       `,
@@ -192,61 +205,61 @@ export default function ThirdBlog() {
       />
       <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="relative md:h-[80vh] bg-gray-900">
+      <div className="relative h-[50vh] sm:h-[60vh] md:h-[80vh] bg-gray-900">
         <img 
           src={blog.image} 
           alt={blog.title}
           className="w-full h-full object-cover object-bottom opacity-60"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
-        
+
         {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
-          className="absolute top-8 left-8 flex items-center gap-2 bg-white/90 hover:bg-white text-gray-800 px-4 py-2 rounded-lg transition-all duration-200 shadow-lg"
+          className="absolute top-4 left-4 sm:top-8 sm:left-8 flex items-center gap-2 bg-white/90 hover:bg-white text-gray-800 px-3 py-2 sm:px-4 sm:py-2 rounded-lg transition-all duration-200 shadow-lg text-sm sm:text-base"
         >
-          <ArrowLeft className="w-5 h-5" />
-          <span className="font-medium">Back</span>
+          <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+          <span className="font-medium hidden sm:inline">Back</span>
         </button>
 
         {/* Category Badge */}
-        <div className="absolute top-8 right-8">
-          <span className="bg-[#20ae9b] text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+        <div className="absolute top-4 right-4 sm:top-8 sm:right-8">
+          <span className="bg-[#20ae9b] text-white px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-semibold shadow-lg">
             Maxpine Group
           </span>
         </div>
       </div>
 
       {/* Content Container */}
-      <div className="max-w-5xl mx-auto px-4 pb-2 -mt-32 relative z-10">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-2 -mt-16 sm:-mt-24 md:-mt-32 relative z-10">
         {/* Article Card */}
-        <article className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+        <article className="bg-white rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden">
           {/* Article Header */}
-          <div className="p-8 md:p-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+          <div className="p-4 sm:p-6 md:p-8 lg:p-12">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight">
               {blog.title}
             </h1>
 
             {/* Meta Information */}
-            <div className="flex flex-wrap items-center gap-6 text-gray-600 mb-8 pb-8 border-b border-gray-200">
-              <div className="flex items-center gap-2">
-                <User className="w-5 h-5 text-[#20ae9b]" />
+            <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-3 sm:gap-6 text-gray-600 mb-6 sm:mb-8 pb-6 sm:pb-8 border-b border-gray-200">
+              <div className="flex items-center gap-2 text-sm sm:text-base">
+                <User className="w-4 h-4 sm:w-5 sm:h-5 text-[#20ae9b]" />
                 <span>{blog.author}</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Calendar className="w-5 h-5 text-[#20ae9b]" />
+              <div className="flex items-center gap-2 text-sm sm:text-base">
+                <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-[#20ae9b]" />
                 <span>{blog.date}</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Clock className="w-5 h-5 text-[#20ae9b]" />
+              <div className="flex items-center gap-2 text-sm sm:text-base">
+                <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-[#20ae9b]" />
                 <span>{blog.readTime}</span>
               </div>
               
               {/* Share Button */}
-              <div className="relative ml-auto">
+              <div className="relative sm:ml-auto mt-2 sm:mt-0">
                 <button
                   onClick={() => setShowShareMenu(!showShareMenu)}
-                  className="flex items-center gap-2 bg-[#20ae9b] hover:bg-[#1a9a88] text-white px-4 py-2 rounded-lg transition-all duration-200"
+                  className="flex items-center gap-2 bg-[#20ae9b] hover:bg-[#1a9a88] text-white px-3 py-2 sm:px-4 sm:py-2 rounded-lg transition-all duration-200 text-sm sm:text-base"
                 >
                   <Share2 className="w-4 h-4" />
                   <span>Share</span>
@@ -254,7 +267,7 @@ export default function ThirdBlog() {
 
                 {/* Share Menu */}
                 {showShareMenu && (
-                  <div className="absolute right-0 mt-2 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-20 w-48">
+                  <div className="absolute right-0 sm:right-0 mt-2 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-20 w-44 sm:w-48">
                     <button
                       onClick={() => handleShare('facebook')}
                       className="w-full flex items-center gap-3 px-4 py-2 hover:bg-gray-50 text-gray-700"
@@ -290,7 +303,7 @@ export default function ThirdBlog() {
 
             {/* Article Content */}
             <div 
-              className="prose prose-lg max-w-none"
+              className="prose prose-sm sm:prose-base md:prose-lg max-w-none px-2 sm:px-0"
               dangerouslySetInnerHTML={{ __html: blog.content }}
               style={{
                 '--tw-prose-headings': '#1f2937',

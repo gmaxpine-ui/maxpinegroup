@@ -135,7 +135,16 @@ export default function SecondBlog() {
 <p>You can book a plot by contacting our <strong>sales team</strong> or scheduling a <strong>site visit</strong> through the official <strong>Contact Us</strong> page. Our representatives will guide you through the booking process and provide all necessary details and documentation.</p>
 
 <h2>Conclusion</h2>
-<p><strong>Anugrah Homes by Maxpine Group</strong> offers more than just plots — it offers an opportunity to build your future in one of India’s fastest-growing regions. With strategic connectivity, top-class amenities, and a developer you can trust, this project is the perfect blend of investment and lifestyle. Book your plot today and be part of the future near <strong>Noida International Airport (Jewar)</strong>.</p>
+<p><strong>Anugrah Homes by Maxpine Group</strong> offers more than just plots — it offers an opportunity to build your future in one of India's fastest-growing regions. With strategic connectivity, top-class amenities, and a developer you can trust, this project is the perfect blend of investment and lifestyle. Book your plot today and be part of the future near <strong>Noida International Airport (Jewar)</strong>.</p>
+
+<div class="bg-gradient-to-r from-[#20ae9b] to-[#108878] rounded-lg p-6 text-white my-8">
+  <h3 class="text-xl font-bold mb-3">🏠 Secure Your Plot Today</h3>
+  <p class="mb-4">Join hundreds of smart investors who have already secured their plots near Noida International Airport. Limited plots available!</p>
+  <div class="flex flex-col sm:flex-row gap-3">
+    <a href="/projects/anugrahhomes" class="bg-white text-[#20ae9b] px-6 py-3 rounded-lg font-semibold text-center hover:bg-gray-100 transition-colors">View Anugrah Homes</a>
+    <a href="/book-site-visit" class="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold text-center hover:bg-white hover:text-[#20ae9b] transition-colors">Book Site Visit</a>
+  </div>
+</div>
 
       `,
       tags: ["Investment", "Property", "Finance", "Guide"]
@@ -148,7 +157,9 @@ export default function SecondBlog() {
       category: "Investment",
       image: img3,
       content: `
-        <p>The region surrounding <strong>Noida International Airport (Jewar Airport)</strong> is transforming into a powerful hub for real estate and economic growth. With recent milestones such as the successful <strong>flight validation test conducted on December 9, 2024</strong>—where an IndiGo aircraft completed landing and operational checks—the airport is on track for its <strong>official opening in April 2025</strong>. This massive infrastructure project is expected to decongest Delhi Airport and connect northern India to global destinations, creating unprecedented investment opportunities. Among the most promising developments in the region is <strong>Anugrah Homes by Maxpine Group</strong>, offering premium residential and commercial plots designed for future-ready living.</p>
+        <p>The region surrounding <strong>Noida International Airport (Jewar Airport)</strong> is transforming into a powerful hub for real estate and economic growth. With recent milestones such as the successful <strong>flight validation test conducted on December 9, 2024</strong>—where an IndiGo aircraft completed landing and operational checks—the airport is on track for its <strong>official opening in April 2025</strong>.</p>
+        
+        <p>This massive infrastructure project is expected to decongest Delhi Airport and connect northern India to global destinations, creating unprecedented investment opportunities. Among the most promising developments in the region is <strong>Anugrah Homes by Maxpine Group</strong>, offering premium residential and commercial plots designed for future-ready living.</p>
 
 <h2>Why Choose Plots Near Noida International Airport?</h2>
 
@@ -312,61 +323,61 @@ export default function SecondBlog() {
       />
       <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="relative md:h-[80vh] bg-gray-900">
-        <img 
-          src={blog.image} 
+      <div className="relative h-[50vh] sm:h-[60vh] md:h-[80vh] bg-gray-900">
+        <img
+          src={blog.image}
           alt={blog.title}
           className="w-full h-full object-cover object-bottom opacity-60"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
-        
+
         {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
           className="absolute top-8 left-8 flex items-center gap-2 bg-white/90 hover:bg-white text-gray-800 px-4 py-2 rounded-lg transition-all duration-200 shadow-lg"
         >
-          <ArrowLeft className="w-5 h-5" />
-          <span className="font-medium">Back</span>
+          <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+          <span className="font-medium hidden sm:inline">Back</span>
         </button>
 
         {/* Category Badge */}
-        <div className="absolute top-8 right-8">
-          <span className="bg-[#20ae9b] text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+        <div className="absolute top-4 right-4 sm:top-8 sm:right-8">
+          <span className="bg-[#20ae9b] text-white px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-semibold shadow-lg">
             Maxpine Group
           </span>
         </div>
       </div>
 
       {/* Content Container */}
-      <div className="max-w-5xl mx-auto px-4 pb-2 -mt-32 relative z-10">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-2 -mt-16 sm:-mt-24 md:-mt-32 relative z-10">
         {/* Article Card */}
-        <article className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+        <article className="bg-white rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden">
           {/* Article Header */}
-          <div className="p-8 md:p-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+          <div className="p-4 sm:p-6 md:p-8 lg:p-12">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight">
               {blog.title}
             </h1>
 
             {/* Meta Information */}
-            <div className="flex flex-wrap items-center gap-6 text-gray-600 mb-8 pb-8 border-b border-gray-200">
-              <div className="flex items-center gap-2">
-                <User className="w-5 h-5 text-[#20ae9b]" />
+            <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-3 sm:gap-6 text-gray-600 mb-6 sm:mb-8 pb-6 sm:pb-8 border-b border-gray-200">
+              <div className="flex items-center gap-2 text-sm sm:text-base">
+                <User className="w-4 h-4 sm:w-5 sm:h-5 text-[#20ae9b]" />
                 <span>{blog.author}</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Calendar className="w-5 h-5 text-[#20ae9b]" />
+              <div className="flex items-center gap-2 text-sm sm:text-base">
+                <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-[#20ae9b]" />
                 <span>{blog.date}</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Clock className="w-5 h-5 text-[#20ae9b]" />
+              <div className="flex items-center gap-2 text-sm sm:text-base">
+                <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-[#20ae9b]" />
                 <span>{blog.readTime}</span>
               </div>
               
               {/* Share Button */}
-              <div className="relative ml-auto">
+              <div className="relative sm:ml-auto mt-2 sm:mt-0">
                 <button
                   onClick={() => setShowShareMenu(!showShareMenu)}
-                  className="flex items-center gap-2 bg-[#20ae9b] hover:bg-[#1a9a88] text-white px-4 py-2 rounded-lg transition-all duration-200"
+                  className="flex items-center gap-2 bg-[#20ae9b] hover:bg-[#1a9a88] text-white px-3 py-2 sm:px-4 sm:py-2 rounded-lg transition-all duration-200 text-sm sm:text-base"
                 >
                   <Share2 className="w-4 h-4" />
                   <span>Share</span>
@@ -374,7 +385,7 @@ export default function SecondBlog() {
 
                 {/* Share Menu */}
                 {showShareMenu && (
-                  <div className="absolute right-0 mt-2 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-20 w-48">
+                  <div className="absolute right-0 sm:right-0 mt-2 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-20 w-44 sm:w-48">
                     <button
                       onClick={() => handleShare('facebook')}
                       className="w-full flex items-center gap-3 px-4 py-2 hover:bg-gray-50 text-gray-700"
@@ -410,7 +421,7 @@ export default function SecondBlog() {
 
             {/* Article Content */}
             <div 
-              className="prose prose-lg max-w-none"
+              className="prose prose-sm sm:prose-base md:prose-lg max-w-none px-2 sm:px-0"
               dangerouslySetInnerHTML={{ __html: blog.content }}
               style={{
                 '--tw-prose-headings': '#1f2937',
