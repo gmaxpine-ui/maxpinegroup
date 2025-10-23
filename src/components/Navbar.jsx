@@ -249,7 +249,7 @@ export default function Navbar() {
                       setDesktop({ main: desktop.main, nested: item.name });
                     }
                   }}
-                  className="ml-2 p-1 hover:bg-white hover:bg-opacity-20 rounded transition-colors duration-200"
+                  className="ml-2 p-1 hover:bg-white hover:text-black hover:bg-opacity-20 rounded transition-colors duration-200"
                   aria-label="Toggle submenu"
                 >
                   <ChevronRight className="w-4 h-4" />
