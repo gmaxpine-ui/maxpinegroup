@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { AppContext } from '../../components/AppContext';
+
 import { Train, MapPin, Calendar, FileText, ArrowRight, Zap, Clock, Leaf, Users, TrendingUp, CheckCircle2 } from 'lucide-react';
 import { Link } from "react-router-dom"
 import img1 from "../../assets/personal-rapid-transport/1 (1).jpg"
@@ -8,6 +10,7 @@ import img4 from "../../assets/personal-rapid-transport/1 (3).jpg"
 
 
 export default function PersonalRapidTransit() {
+  const { setWebName } = useContext(AppContext);
   const recentPosts = [
     "Buy Plots Near Jewar Airport – Anugrah Homes by Maxpine Group",
     "A Joyous Celebration at Anugrah Homes: Family Carnival Success!",
@@ -15,6 +18,15 @@ export default function PersonalRapidTransit() {
     "Residential Plots Near Noida International Airport: A New Gateway to Global Connectivity",
     "A Festive Affair: Diwali at Maxpine Group"
   ];
+
+
+  useEffect(() => {
+    return () => {
+      setWebName(null);
+    };
+  }, [setWebName]);
+
+
 
   const features = [
     {

@@ -59,10 +59,8 @@
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('/sw.js')
             .then((registration) => {
-              // console.log('SW registered: ', registration);
             })
             .catch((registrationError) => {
-              // console.log('SW registration failed: ', registrationError);
             });
         });
       }
@@ -84,7 +82,6 @@
           gtag('event', 'conversion', {
             'send_to': 'AW-17420826626/9qgMCNezsYkbEILw8vJA'
           });
-          console.log(" Conversion event triggered!");
         }
       });
     </script>

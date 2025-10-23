@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { AppContext } from '../../components/AppContext';
+
 import { ChevronDown, ChevronUp, MapPin, Building, Film, Clapperboard, Clock } from 'lucide-react';
 import { Music, Scissors, Zap, Tent, Theater } from "lucide-react";
 import { Link } from 'react-router-dom';
@@ -10,6 +12,13 @@ import img5 from "../../assets/All home imgs/present-Project-img-1 (2).png"
 import img6 from "../../assets/All home imgs/update-16.jpeg"
 import { X } from "lucide-react";
 export default function InternationalFilmCity() {
+  const { setWebName } = useContext(AppContext);
+
+  useEffect(() => {
+    return () => {
+      setWebName(null);
+    };
+  }, [setWebName]);
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [expandedSections, setExpandedSections] = useState({

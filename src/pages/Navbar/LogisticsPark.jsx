@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { AppContext } from '../../components/AppContext';
 import { MapPin, Truck, Package, Building, TrendingUp, ArrowRight, CheckCircle2, Warehouse, Train, Plane } from 'lucide-react';
 
 import { Link } from 'react-router-dom';
@@ -6,6 +7,14 @@ import { Link } from 'react-router-dom';
 import img1 from "../../assets/All home imgs/logisticpark.png"
 
 export default function LogisticsPark() {
+  const { setWebName } = useContext(AppContext);
+
+  useEffect(() => {
+    return () => {
+      setWebName(null);
+    };
+  }, [setWebName]);
+
   const features = [
     {
       icon: <Train className="w-6 h-6" />,

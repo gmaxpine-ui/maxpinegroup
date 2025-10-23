@@ -1,10 +1,19 @@
-import React ,{useState} from 'react';
+import React ,{useState, useContext, useEffect} from 'react';
+import { AppContext } from '../../components/AppContext';
+
 import { MapPin, Target, Building2, TrendingUp, CheckCircle2, ArrowRight } from 'lucide-react';
 import { X } from "lucide-react";
 import { Link } from 'react-router-dom';
 import img1 from "/downloads/Medical.jpg"
 
 export default function MedicalDevicePark() {
+  const { setWebName } = useContext(AppContext);s
+
+  useEffect(() => {
+    return () => {
+      setWebName(null);
+    };
+  }, [setWebName]);
   const [selectedImage, setSelectedImage] = useState(null);
   const focusAreas = [
     "Cancer care and radiotherapy devices",

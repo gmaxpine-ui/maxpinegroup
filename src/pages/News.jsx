@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { AppContext } from '../components/AppContext';
+
 import { useNavigate } from 'react-router-dom';
 import { Calendar, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import img1 from "../assets/All home imgs/new-update-1.jpeg"
@@ -14,15 +16,23 @@ import img10 from "../assets/All home imgs/update-32.jpeg"
 import imgvide from "../assets/All home imgs/video-placeholder.jpg"
 
 export default function News() {
+  const { setWebName } = useContext(AppContext);
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 6;
+
+
+  useEffect(() => {
+    return () => {
+      setWebName(null);
+    };
+  }, [setWebName]);
 
   const blogPosts = [
     { id: 1, url:"/buy-plots-near-jewar-airport/", title: "Buy Plots Near Jewar Airport – Anugrah Homes by Maxpine Group", author: "Maxpine Group", date: "07 December, 21", excerpt: "Buy Plots Near Jewar Airport, the surrounding areas are transforming into a real estate hotspot...", image: img1, category:"business" },
     { id: 2, url:"/property/plots-near-noida-international-airport/",  title: "Plots Near Noida International Airport – Anugrah Homes by Maxpine Group", author: "Maxpine Group", date: "15 December, 21", excerpt: "The region surrounding Noida International Airport, also known as Jewar Airport...", image: img2 },
     { id: 3, url:"/nia/", title: "Residential Plots Near Noida International Airport: A New Gateway to Global Connectivity", author: "Maxpine Group", date: "10 December, 21", excerpt: "The Noida International Airport in Jewar is progressing rapidly and recently achieved...", image: img3 },
-    { id: 4, url:"/updates/blogs/authority-plots-near-jewar-airport/", title: "Authority Plots Near Jewar Airport | Maxpine Group", author: "Maxpine Group", date: "07 December, 21", excerpt: "Properties are most budget friendly so you have are opportunity to find are the best the best...", image: img4 },
+    { id: 4, url:"/updates/blogs/authority-plots-near-jewar-airport/", title: "Book Your Future Today with Premium Authority Plots Near Jewar Airport – Maxpine Group ", author: "Maxpine Group", date: "07 December, 21", excerpt: "Properties are most budget friendly so you have are opportunity to find are the best the best...", image: img4 },
     { id: 5, url:"/property/plots-near-noida-international-airport/", title: "The Best Types Of Real Estate Investment Properties.", author: "Maxpine Group", date: "15 December, 21", excerpt: "Properties are most budget friendly so you have are opportunity to find are the best the best...", image: img5 },
     { id: 6, url:"/nia/", title: "How Much Does Land Survey Cost in 2022?.", author: "Maxpine Group", date: "10 December, 21", excerpt: "Properties are most budget friendly so you have are opportunity to find are the best the best...", image: img6 },
     { id: 7,url:"/buy-plots-near-jewar-airport/", title: "18 Best Real Estate Apps For Buyers, Sellers & Investors.", author: "Maxpine Group", date: "07 December, 21", excerpt: "Properties are most budget friendly so you have are opportunity to find are the best the best...", image: img7 },

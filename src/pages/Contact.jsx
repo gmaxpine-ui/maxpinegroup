@@ -24,6 +24,7 @@ export default function Contact() {
 
   // const [showPopup, setShowPopup] = useState(false);
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Set projectName when webName changes
   useEffect(() => {
@@ -31,6 +32,15 @@ export default function Contact() {
       setFormData(prev => ({ ...prev, projectName: webName }));
     }
   }, [webName]);
+
+
+  // useEffect(() => {
+  //   return () => {
+  //     setWebName(null);
+  //   };
+  // }, [setWebName]);
+
+
 
   const EMAILJS_SERVICE_ID = 'service_cnlusd3';
   const EMAILJS_TEMPLATE_ID = 'template_fvbpbue';
@@ -47,8 +57,9 @@ export default function Contact() {
 
     // Validate phone number - only allow digits
     if (name === 'phone') {
-      const digitsOnly = value.replace(/\D/g, '');
-      setFormData({ ...formData, [name]: digitsOnly });
+      // Allow only digits, remove all other characters
+      const phoneOnly = value.replace(/[^\d]/g, '');
+      setFormData({ ...formData, [name]: phoneOnly });
     } else {
       setFormData({ ...formData, [name]: value });
     }
@@ -137,10 +148,10 @@ export default function Contact() {
       return;
     }
 
+    setIsSubmitting(true);
+
     try {
-      console.log("Form data being submitted:", formData);
-      console.log("webName context:", webName);
-      console.log("projectName in formData:", formData.projectName);
+      
       
       // Send via EmailJS
       await emailjs.send(
@@ -150,11 +161,8 @@ export default function Contact() {
         EMAILJS_PUBLIC_KEY        // replace with your EmailJS public key
       );
 
-      console.log("EmailJS sent successfully");
-
       // Send via your API
-      const apiUrl = 'https://rushclick-crm.onrender.com/api/website-lead/leads/max_4lco9j6c';
-      console.log("Sending to API:", apiUrl);
+      const apiUrl = 'https://rushclick-crm.onrender.com/api/website-lead/leads/max_mugcj40q';
       
       // Ensure we have a project name
       const projectName = 'Maxpine Group';
@@ -170,10 +178,7 @@ export default function Contact() {
         
       };
       
-      console.log("API payload:", apiData);
-      
-      const response = await axios.post(apiUrl, apiData);
-      console.log("API response:", response.data);
+      const _response = await axios.post(apiUrl, apiData);
 
       // setShowPopup(true);
       nav("/thankyou");
@@ -196,6 +201,8 @@ export default function Contact() {
       } else {
         alert("Something went wrong. Please try again later.");
       }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -334,6 +341,7 @@ export default function Contact() {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
+                      maxLength="20"
                       className={`w-full px-4 py-3 border ${errors.name ? 'border-red-500' : 'border-slate-300'} rounded-lg focus:ring-2 focus:ring-[#20ae9b] outline-none transition`}
                       placeholder="Name"
                     />
@@ -346,6 +354,7 @@ export default function Contact() {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
+                      
                       className={`w-full px-4 py-3 border ${errors.email ? 'border-red-500' : 'border-slate-300'} rounded-lg focus:ring-2 focus:ring-[#20ae9b] outline-none transition`}
                       placeholder="abc@gmail.com"
                     />
@@ -362,9 +371,9 @@ export default function Contact() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      maxLength="15"
+                      maxLength="10"
                       className={`w-full px-4 py-3 border ${errors.phone ? 'border-red-500' : 'border-slate-300'} rounded-lg focus:ring-2 focus:ring-[#20ae9b] outline-none transition`}
-                      placeholder="+91 0000000000"
+                      placeholder="9876543210"
                     />
                     {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
                   </div>
@@ -393,6 +402,7 @@ export default function Contact() {
                           name="customProperty"
                           value={formData.customProperty || ""}
                           onChange={handleChange}
+                          maxLength="30"
                           placeholder="Enter your custom requirement"
                           className={`w-full px-4 py-3 border ${errors.customProperty ? 'border-red-500' : 'border-slate-300'} rounded-lg focus:ring-2 focus:ring-[#20ae9b] outline-none transition`}
                         />
@@ -446,6 +456,7 @@ export default function Contact() {
                     value={formData.message}
                     onChange={handleChange}
                     rows="6"
+                    maxLength="1500"
                     className={`w-full px-4 py-3 border ${errors.message ? 'border-red-500' : 'border-slate-300'} rounded-lg focus:ring-2 focus:ring-[#20ae9b] outline-none transition resize-none`}
                     placeholder="Tell us about your requirements..."
                   ></textarea>
@@ -455,10 +466,24 @@ export default function Contact() {
                 {/* Submit Button */}
                 <button
                   onClick={handleSubmit}
-                  className="w-full bg-[#20ae9b] hover:bg-[#2b877a] text-white font-semibold py-4 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                  disabled={isSubmitting}
+                  className="w-full bg-[#20ae9b] hover:bg-[#2b877a] text-white font-semibold py-4 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <Send className="w-5 h-5" />
-                  Send Message
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-5 h-5 flex items-center justify-center">
+                        <div className="relative w-4 h-4">
+                          <div className="absolute inset-0 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        </div>
+                      </div>
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-5 h-5" />
+                      Send Message
+                    </>
+                  )}
                 </button>
               </div>
             </div>

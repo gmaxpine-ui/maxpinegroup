@@ -114,8 +114,8 @@ const KeyPlanSk = () => {
             <p className="text-sm mb-4 text-blue-50">
              Get exclusive property details, latest news
             </p>
-            <Link to="/projects/skyline/keyplan/contact-us">
-              <button onClick={()=>setWebName("SkyLine Aero Hoems")} className="w-full bg-white text-[#20ae9b] font-semibold py-3 rounded-lg hover:bg-blue-50 transition">
+            <Link to={`/projects/skyline/keyplan/contact-us`}>
+              <button onClick={()=>setWebName("SkyLine Aero Homes")} className="w-full bg-white text-[#20ae9b] font-semibold py-3 rounded-lg hover:bg-blue-50 transition">
                 Contact Us Today
               </button>
             </Link>

@@ -4,7 +4,7 @@ import { Building2, MapPin, Bed, Bath, Square, Calendar, DollarSign, Filter, Sea
 export default function Projects() {
   const [filter, setFilter] = useState('all');
   const [search, setSearch] = useState('');
-  const [priceRange, setPriceRange] = useState('all');
+  // const [priceRange, setPriceRange] = useState('all');
   const [showFilters, setShowFilters] = useState(false);
 
   const projects = [

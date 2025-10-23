@@ -1,5 +1,6 @@
+import { useState, useContext, useEffect } from "react";
+import { AppContext } from "../../../components/AppContext";
 
-import { useState } from "react";
 import { Home, ChevronDown, Calendar, Camera, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { X } from "lucide-react";
@@ -53,9 +54,16 @@ import img42 from "../../../assets/BrijVrinda/29.jpeg"
 import img43 from "../../../assets/BrijVrinda/30.jpeg"
 
 export default function Development() {
+  const { setWebName } = useContext(AppContext);
     const [selectedImage, setSelectedImage] = useState(null);
 
   const [openSection, setOpenSection] = useState(null);
+
+  useEffect(() => {
+    return () => {
+      setWebName(null);
+    };
+  }, [setWebName]);
 
   const updates = [
     {

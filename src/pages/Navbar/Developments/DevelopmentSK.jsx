@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
+import { AppContext } from "../../../components/AppContext";
 import { Home, ChevronDown, Calendar, Camera, ArrowRight, X } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -10,8 +11,14 @@ import img5 from "../../../assets/skyline/7.jpeg"
 // import vid1 from "https://ik.imagekit.io/16pq4do9s/assets/skyline/1.mp4?updatedAt=1759830429078"
 
 export default function DevelopmentSK() {
+  const { setWebName } = useContext(AppContext);
   const [openSection, setOpenSection] = useState(null);
   const [popupMedia, setPopupMedia] = useState(null); // 🔹 Store clicked image/video
+  useEffect(() => {
+    return () => {
+      setWebName(null);
+    };
+  }, [setWebName]);
 const vid1 = "https://ik.imagekit.io/16pq4do9s/assets/skyline/1.mp4?updatedAt=1759830429078"
   const updates = [
     {

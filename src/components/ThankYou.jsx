@@ -7,7 +7,6 @@ export default function ThankYou() {
       window.gtag("event", "conversion", {
         send_to: "AW-17420826626/9qgMCNezsYkbEILw8vJA",
       });
-      console.log(" Conversion Event Fired!");
     }
   }, []);
   return (

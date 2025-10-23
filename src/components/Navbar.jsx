@@ -219,7 +219,7 @@ export default function Navbar() {
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                // Allow navigation to main item even if it has submenu
+                // Navigate to main page
                 handleItemClick(item);
               }}
               onTouchEnd={(e) => {
@@ -230,14 +230,31 @@ export default function Navbar() {
                 }
               }}
               className={`navbar-dropdown dropdown-item flex items-center justify-between px-6 py-3 transition-colors duration-200 cursor-pointer safari-clickable ${desktop.nested === item.name
-                  ? " text-white"
+                  ? "bg-[#20ae9b] text-white"
                   : item.sub 
                     ? "text-gray-700"
                     : "text-gray-700 hover:bg-[#20ae9b] hover:text-white"
                 }`}
             >
-              <span>{item.name}</span>
-              {item.sub && <ChevronRight className="w-4 h-4" />}
+              <span className="flex-1">{item.name}</span>
+              {item.sub && (
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    // Toggle sub-dropdown
+                    if (desktop.nested === item.name) {
+                      setDesktop({ main: desktop.main, nested: null });
+                    } else {
+                      setDesktop({ main: desktop.main, nested: item.name });
+                    }
+                  }}
+                  className="ml-2 p-1 hover:bg-white hover:bg-opacity-20 rounded transition-colors duration-200"
+                  aria-label="Toggle submenu"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              )}
             </div>
             {item.sub && (
               <div
@@ -554,10 +571,6 @@ export default function Navbar() {
         
         /* Safari-specific hover fixes */
         @media screen and (-webkit-min-device-pixel-ratio: 0) {
-          .safari-dropdown-item:hover {
-            background-color: #20ae9b !important;
-            color: white !important;
-          }
           
           // .safari-clickable:hover {
           //   background-color: #20ae9b !important;

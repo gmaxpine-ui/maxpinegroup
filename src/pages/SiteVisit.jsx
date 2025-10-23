@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 // import { useParams } from "react-router-dom";
-import { Link ,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Calendar, MapPin, Clock, Users, CheckCircle, ArrowRight, Building2, Car, Phone, Mail } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import axios from 'axios';
@@ -8,7 +8,8 @@ import img1 from "../assets/All home imgs/video-placeholder.jpg"
 
 export default function SiteVisit() {
   const [errors, setErrors] = useState({});
-  const nav=useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const nav = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,8 +20,6 @@ export default function SiteVisit() {
     visitors: '1',
     message: ''
   });
-  const [submitted, setSubmitted] = useState(false);
-
 
 const validateForm = () => {
     const newErrors = {};
@@ -37,39 +36,47 @@ const validateForm = () => {
 
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
 
+    // Validate phone number - only allow digits
+    if (name === 'phone') {
+      const phoneOnly = value.replace(/[^\d]/g, '');
+      setFormData({ ...formData, [name]: phoneOnly });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
- let selectedProperty = "";
+  let selectedProperty = "";
 
-switch (formData.property) {
-  case "1":
-    selectedProperty = "Anugrah Homes";
-    break;
-  case "2":
-    selectedProperty = "SkyLine Aero Homes";
-    break;
-  case "3":
-    selectedProperty = "Brij Vrinda";
-    break;
-  case "4":
-    selectedProperty = "The Club Farm";
-    break;
-  default:
-    selectedProperty = "Maxpine Group";
-}
+  switch (formData.property) {
+    case "1":
+      selectedProperty = "Anugrah Homes";
+      break;
+    case "2":
+      selectedProperty = "SkyLine Aero Homes";
+      break;
+    case "3":
+      selectedProperty = "Brij Vrinda";
+      break;
+    case "4":
+      selectedProperty = "The Club Farm";
+      break;
+    default:
+      selectedProperty = "Maxpine Group";
+  }
 
 
- const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
 
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return; // Stop submission if errors exist
     }
+
+    setIsSubmitting(true);
     // Prepare data for EmailJS
     const emailData = {
       from_name: "Booking Visit Site from Maxpine Group",
@@ -94,33 +101,33 @@ switch (formData.property) {
         emailData,
         "jr9fqioLswz6tdy46"
       );
-      
-      // Send data to backend API
-      const apiUrl = 'https://rushclick-crm.onrender.com/api/website-lead/leads/max_4lco9j6c';
-      console.log("Sending to API:", apiUrl);
 
-        const apiData = {
+      // Send data to backend API
+      const apiUrl = 'https://rushclick-crm.onrender.com/api/website-lead/leads/max_mugcj40q';
+
+      const apiData = {
         name: formData.name,
         phone: formData.phone,
         email: formData.email,
-        Number_of_Visitors: formData.visitors, 
-        Selected_Property : selectedProperty,
-        Message: formData.message ,
-        Date: formData.date ,
-        Time: formData.time ,
+        Number_of_Visitors: formData.visitors,
+        Selected_Property: selectedProperty,
+        Message: formData.message,
+        Date: formData.date,
+        Time: formData.time,
         lead_source: "Maxpine Group",
-        subsource:"Booking Visit Site"
+        subsource: "Booking Visit Site"
       };
-      
-      const response = await axios.post(apiUrl, apiData);
+
+      const _response = await axios.post(apiUrl, apiData);
 
       nav("/thankyou")
 
     } catch (error) {
       console.error("Error sending data:", error);
+    } finally {
+      setIsSubmitting(false);
     }
-      setTimeout(() => {
-      setSubmitted(false);
+    setTimeout(() => {
       setFormData({
         name: '', email: '', phone: '', date: '', time: '',
         property: '', visitors: '1', message: ''
@@ -130,8 +137,8 @@ switch (formData.property) {
   const properties = [
     { id: 1, name: 'Anugrah Homes', location: 'Downtown District', type: 'Homes', url: "https://anugrahhomes.com" },
     { id: 2, name: 'Skyline Aero homes', location: 'Business Bay', type: 'Homes', url: "https://skylineaerohomes.com/" },
-    { id: 3, name: 'Brij Vrinda', location: 'Marina District', type: 'Homes',url: "https://brijvrindafarms.com/"  },
-    { id: 4, name: 'The Club Farm', location: 'Suburban Area', type: 'Homes', url:"/the-club-farm"  }
+    { id: 3, name: 'Brij Vrinda', location: 'Marina District', type: 'Homes', url: "https://brijvrindafarms.com/" },
+    { id: 4, name: 'The Club Farm', location: 'Suburban Area', type: 'Homes', url: "/the-club-farm" }
   ];
 
   const benefits = [
@@ -209,7 +216,7 @@ switch (formData.property) {
               <div className="space-y-3">
                 <a href="tel:+919115253545" className="flex  gap-3 text-white  transition-colors">
                   <Phone className="w-5 h-5" />
-                  <span>+91-9115253545 <br/> (+91) 1204107573 </span>
+                  <span>+91-9115253545 <br /> (+91) 1204107573 </span>
                 </a>
                 <a href="mailto:info@maxpinegroup.in" className="flex items-center gap-3 text-white transition-colors">
                   <Mail className="w-5 h-5" />
@@ -247,12 +254,13 @@ switch (formData.property) {
                       <input
                         type="text"
                         name="name"
+                        maxLength="20"
                         value={formData.name}
                         onChange={handleChange}
                         className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#20ae9b] focus:border-transparent outline-none transition"
                         placeholder="Name"
                       />
-                       {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+                      {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-slate-700 mb-2">
@@ -261,13 +269,17 @@ switch (formData.property) {
                       <input
                         type="tel"
                         name="phone"
+                        maxLength="10"
                         value={formData.phone}
                         onChange={handleChange}
                         className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#20ae9b] focus:border-transparent outline-none transition"
-                        placeholder="+91-987-654-3210"
+                        placeholder="9876543210"
                       />
-                      {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
+                      {errors.phone && (
+                        <p className="text-red-500 text-sm">{errors.phone}</p>
+                      )}
                     </div>
+
                   </div>
                   <div className="mt-4">
                     <label className="block text-sm font-medium text-slate-700 mb-2">
@@ -277,12 +289,35 @@ switch (formData.property) {
                       type="email"
                       name="email"
                       value={formData.email}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#20ae9b] focus:border-transparent outline-none transition"
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        handleChange(e); // update form data
+
+                        //  Basic email validation regex
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (value && !emailRegex.test(value)) {
+                          // invalid email → show error
+                          setErrors((prev) => ({
+                            ...prev,
+                            email: "Please enter a valid email address",
+                          }));
+                        } else {
+                          // valid email → clear error
+                          setErrors((prev) => ({
+                            ...prev,
+                            email: "",
+                          }));
+                        }
+                      }}
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#20ae9b] focus:border-transparent outline-none transition ${errors.email ? "border-red-500" : "border-slate-300"
+                        }`}
                       placeholder="abc@gmail.com"
                     />
-                     {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+                    {errors.email && (
+                      <p className="text-red-500 text-sm">{errors.email}</p>
+                    )}
                   </div>
+
                 </div>
 
                 {/* Visit Details */}
@@ -301,7 +336,7 @@ switch (formData.property) {
                         onChange={handleChange}
                         className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#20ae9b] focus:border-transparent outline-none transition"
                       />
-                       {errors.date && <p className="text-red-500 text-sm">{errors.date}</p>}
+                      {errors.date && <p className="text-red-500 text-sm">{errors.date}</p>}
                     </div>
                     {/* Preferd Timeing */}
                     <div>
@@ -325,7 +360,7 @@ switch (formData.property) {
                         <option value="16:00">04:00 PM</option>
                         <option value="17:00">05:00 PM</option>
                       </select>
-                       {errors.time && <p className="text-red-500 text-sm">{errors.time}</p>}
+                      {errors.time && <p className="text-red-500 text-sm">{errors.time}</p>}
                     </div>
                   </div>
                   {/* Property choose */}
@@ -347,7 +382,7 @@ switch (formData.property) {
                             <option key={p.id} value={p.id}>{p.name}</option>
                           ))}
                         </select>
-                         {errors.property && <p className="text-red-500 text-sm">{errors.property}</p>}
+                        {errors.property && <p className="text-red-500 text-sm">{errors.property}</p>}
                       </div>
 
                       <div>
@@ -381,6 +416,7 @@ switch (formData.property) {
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
+                    maxLength="1500"
                     rows="4"
                     className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#20ae9b] focus:border-transparent outline-none transition resize-none"
                     placeholder="Any special requirements or questions?"
@@ -389,10 +425,24 @@ switch (formData.property) {
 
                 <button
                   onClick={handleSubmit}
-                  className="w-full bg-[#20ae9b] hover:bg-[#177468] text-white font-semibold py-4 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                  disabled={isSubmitting}
+                  className="w-full bg-[#20ae9b] hover:bg-[#177468] text-white font-semibold py-4 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <Calendar className="w-5 h-5" />
-                  Confirm Site Visit
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-5 h-5 flex items-center justify-center">
+                        <div className="relative w-4 h-4">
+                          <div className="absolute inset-0 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        </div>
+                      </div>
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      <Calendar className="w-5 h-5" />
+                      Confirm Site Visit
+                    </>
+                  )}
                 </button>
 
                 <p className="text-sm text-slate-500 text-center">

@@ -5,10 +5,10 @@ import {Link} from "react-router-dom"
 import "swiper/css";
 import "swiper/css/navigation";
 import { motion } from "framer-motion";
-import { useState, useRef, useEffect, lazy, Suspense } from "react";
+import { useState, useRef, useEffect } from "react";
 
 // Lazy load heavy components
-const OptimizedVideo = lazy(() => import("../../components/OptimizedVideo"));
+import OptimizedVideo from "../../components/OptimizedVideo";
 
 // Import only essential images
 import anulogo from "../../assets/All home imgs/logo-2.png"
@@ -214,14 +214,12 @@ export default function Banner() {
               <X className="w-6 h-6" />
             </button>
 
-            <Suspense fallback={<div className="w-full h-auto max-h-[70vh] rounded-lg bg-gray-200 animate-pulse flex items-center justify-center">Loading video...</div>}>
-              <OptimizedVideo
-                src={videoModal.url}
-                controls
-                autoPlay
-                className="w-full h-auto max-h-[70vh] rounded-lg"
-              />
-            </Suspense>
+            <OptimizedVideo
+              src={videoModal.url}
+              controls
+              autoPlay
+              className="w-full h-auto max-h-[70vh] rounded-lg"
+            />
           </div>
         </div>
       )}

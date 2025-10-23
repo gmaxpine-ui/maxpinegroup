@@ -62,7 +62,6 @@ export default function Leafshade() {
 
   // const handleSubmitReview = (e) => {
   //   e.preventDefault();
-  //   console.log('Review submitted:', { ...reviewData, rating });
   // };
 
   return (

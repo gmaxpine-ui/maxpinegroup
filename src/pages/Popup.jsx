@@ -69,7 +69,7 @@ export default function Popup() {
             Phone: ${formData.phone},
             Email: ${formData.email},
             City: ${formData.city},
-               Date: ${userdate}
+             Date: ${userdate}
         Time: ${usertime}
              `
 
@@ -85,26 +85,19 @@ export default function Popup() {
             );
 
             // 2 Send data to your backend API
-            await axios.post('https://rushclick-crm.onrender.com/api/website-lead/leads/max_4lco9j6c', {
+            await axios.post('https://rushclick-crm.onrender.com/api/website-lead/leads/max_mugcj40q', {
                 name: `${formData.firstName} ${formData.lastName}`,
                 phone: formData.phone,
                 email: formData.email,
                 city: formData.city,
-                subsource:"Maxpine Group Popup",
+                subsource: "Maxpine Group Popup",
                 lead_source: 'Maxpine Group ',
             });
 
-            setStatus({
-                type: 'success',
-                message: 'Thank you! Your message has been sent successfully. We will get back to you soon.'
-            });
-
+            // Don't show success message, go directly to thank you page
             handleReset();
-            //  Redirect to /thankyou after a short delay (so user can see success)
-            setTimeout(() => {
-                handleClose(); // close popup
-                navigate("/thankyou"); // go to thank you page
-            }, 1000);
+            handleClose(); // close popup
+            navigate("/thankyou"); // go to thank you page immediately
         } catch (err) {
             console.error(err);
             setStatus({
@@ -176,7 +169,7 @@ export default function Popup() {
                                 <label className="block text-sm font-semibold text-gray-700 mb-2">First Name <span className="text-red-500">*</span></label>
                                 <div className="relative">
                                     <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                                    <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} placeholder="First Name" className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#20ae9b] focus:border-transparent outline-none ${errors.firstName ? 'border-red-500' : 'border-gray-300'}`} />
+                                    <input type="text" maxLength={15} name="firstName" value={formData.firstName} onChange={handleChange} placeholder="First Name" className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#20ae9b] focus:border-transparent outline-none ${errors.firstName ? 'border-red-500' : 'border-gray-300'}`} />
                                 </div>
                                 {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>}
                             </div>
@@ -184,7 +177,7 @@ export default function Popup() {
                                 <label className="block text-sm font-semibold text-gray-700 mb-2">Last Name <span className="text-red-500">*</span></label>
                                 <div className="relative">
                                     <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                                    <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last Name" className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#20ae9b] focus:border-transparent outline-none ${errors.lastName ? 'border-red-500' : 'border-gray-300'}`} />
+                                    <input type="text" maxLength={15} name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last Name" className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#20ae9b] focus:border-transparent outline-none ${errors.lastName ? 'border-red-500' : 'border-gray-300'}`} />
                                 </div>
                                 {errors.lastName && <p className="text-red-500 text-xs mt-1">{errors.lastName}</p>}
                             </div>
@@ -196,7 +189,24 @@ export default function Popup() {
                                 <label className="block text-sm font-semibold text-gray-700 mb-2">Phone <span className="text-red-500">*</span></label>
                                 <div className="relative">
                                     <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                                    <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="+91 98765 43210" className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#20ae9b] focus:border-transparent outline-none ${errors.phone ? 'border-red-500' : 'border-gray-300'}`} />
+                                    <input
+                                        type="tel"
+                                        maxLength={10}
+                                        name="phone"
+                                        value={formData.phone}
+                                        onChange={(e) => {
+                                            const value = e.target.value;
+                                            // Allow only digits and plus sign at the start
+                                            if (/^\d*$/.test(value)) {
+                                                handleChange(e);
+                                              }
+                                              
+                                        }}
+                                        placeholder="+91 98765 43210"
+                                        className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#20ae9b] focus:border-transparent outline-none ${errors.phone ? 'border-red-500' : 'border-gray-300'
+                                            }`}
+                                    />
+
                                 </div>
                                 {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
                             </div>
@@ -204,7 +214,7 @@ export default function Popup() {
                                 <label className="block text-sm font-semibold text-gray-700 mb-2">City <span className="text-red-500">*</span></label>
                                 <div className="relative">
                                     <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                                    <input type="text" name="city" value={formData.city} onChange={handleChange} placeholder="New Delhi" className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#20ae9b] focus:border-transparent outline-none ${errors.city ? 'border-red-500' : 'border-gray-300'}`} />
+                                    <input type="text" name="city" maxLength={12} value={formData.city} onChange={handleChange} placeholder="New Delhi" className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#20ae9b] focus:border-transparent outline-none ${errors.city ? 'border-red-500' : 'border-gray-300'}`} />
                                 </div>
                                 {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city}</p>}
                             </div>
@@ -215,7 +225,7 @@ export default function Popup() {
                             <label className="block text-sm font-semibold text-gray-700 mb-2">Email <span className="text-red-500">*</span></label>
                             <div className="relative">
                                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                                <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="abc@example.com" className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#20ae9b] focus:border-transparent outline-none ${errors.email ? 'border-red-500' : 'border-gray-300'}`} />
+                                <input type="email" name="email" value={formData.email} maxLength={50} onChange={handleChange} placeholder="abc@email.com" className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#20ae9b] focus:border-transparent outline-none ${errors.email ? 'border-red-500' : 'border-gray-300'}`} />
                             </div>
                             {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                         </div>
@@ -225,8 +235,12 @@ export default function Popup() {
                             <button onClick={handleSubmit} disabled={isSubmitting} className="flex-1 bg-gradient-to-r from-[#20ae9b] to-[#0d7e6f] text-white px-6 py-3 rounded-lg font-semibold hover:from-[#267c71] hover:to-[#0ba18d] transition-all shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
                                 {isSubmitting ? (
                                     <>
-                                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                        Sending...
+                                        <div className="w-5 h-5 flex items-center justify-center">
+                                            <div className="relative w-4 h-4">
+                                                <div className="absolute inset-0 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                            </div>
+                                        </div>
+                                        Processing...
                                     </>
                                 ) : (
                                     <>

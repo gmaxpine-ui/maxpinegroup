@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Home, User, Award, Building2, Users, TrendingUp, CheckCircle, Phone, Mail, MapPin, Target, Eye, Heart, Shield } from 'lucide-react';
+import React , { useContext, useEffect, useState } from 'react'
+import { AppContext } from "../components/AppContext";
+
+import { Home, User, Award, Phone, Mail, MapPin, Target, Eye, Heart, Shield } from 'lucide-react';
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
@@ -81,30 +83,16 @@ const team = [
 
 ];
 
-const testimonials = [
-  {
-    name: 'John Anderson',
-    role: 'Property Owner',
-    text: 'Maxpine helped us find our dream home. Their professionalism and dedication are unmatched!',
-    rating: 5
-  },
-  {
-    name: 'Lisa Williams',
-    role: 'First-time Buyer',
-    text: 'The team was incredibly patient and guided us through every step. Highly recommended!',
-    rating: 5
-  },
-  {
-    name: 'Robert Taylor',
-    role: 'Investor',
-    text: 'Best real estate experience ever. They truly understand the market and client needs.',
-    rating: 5
-  }
-];
-
 export default function About() {
   const [isVisible, setIsVisible] = useState({});
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const { setWebName } = useContext(AppContext);
+
+  useEffect(() => {
+    return () => {
+      setWebName(null);
+    };
+  }, [setWebName]);
+
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -125,12 +113,6 @@ export default function About() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <>
@@ -149,10 +131,6 @@ export default function About() {
           </div>
         </div>
       </section>
-
-     
-
-      
 
       {/* Services Section */}
       <section className="py-16 lg:py-20 bg-white">
@@ -219,9 +197,6 @@ export default function About() {
           </div>
         </div>
       </section>
-
-
-
 
       {/* Team Section */}
    <section className="py-16 lg:py-20 bg-white relative">
@@ -299,12 +274,7 @@ export default function About() {
   </div>
 </section>
 
-
-
-
-
-     
-       <OfficiTestimonial/>
+      <OfficiTestimonial/>
       <Testimonial/>
 
       {/* CTA Section */}

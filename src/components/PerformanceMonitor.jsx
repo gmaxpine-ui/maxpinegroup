@@ -6,13 +6,13 @@ const PerformanceMonitor = () => {
     const observer = new PerformanceObserver((list) => {
       for (const entry of list.getEntries()) {
         if (entry.entryType === 'largest-contentful-paint') {
-          // console.log('LCP:', entry.startTime);
+          // LCP monitoring - logging disabled
         }
         if (entry.entryType === 'first-input') {
-          // console.log('FID:', entry.processingStart - entry.startTime);
+          // FID monitoring - logging disabled
         }
         if (entry.entryType === 'layout-shift') {
-          // console.log('CLS:', entry.value);
+          // CLS monitoring - logging disabled
         }
       }
     });
@@ -25,7 +25,6 @@ const PerformanceMonitor = () => {
         if (entry.entryType === 'resource') {
           const loadTime = entry.responseEnd - entry.startTime;
           if (loadTime > 1000) { // Log slow resources
-            // console.warn('Slow resource:', entry.name, loadTime + 'ms');
           }
         }
       }

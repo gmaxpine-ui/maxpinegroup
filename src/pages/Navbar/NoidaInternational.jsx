@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { AppContext } from '../../components/AppContext';
+
 import { Link } from 'react-router-dom';
 import { ChevronDown, ChevronUp, MapPin, Calendar, Users, Building2 } from 'lucide-react';
 import img1 from "../../assets/All home imgs/airport1.png"
@@ -18,6 +20,16 @@ import img8 from "../../assets/All home imgs/present-Project-img-1 (1).webp"
 import img9 from "../../assets/All home imgs/present-Project-img-1 (2).png"
 
 export default function NoidaInternational() {
+  const { setWebName } = useContext(AppContext);
+
+  useEffect(() => {
+    return () => {
+      setWebName(null);
+    };
+  }, [setWebName]);
+
+
+
   const [expandedSections, setExpandedSections] = useState({
     location: true,
     phase: false,
