@@ -47,27 +47,27 @@ const validateForm = () => {
     }
   };
 
-  let selectedProperty = "";
+ let selectedProperty = "";
 
-  switch (formData.property) {
-    case "1":
-      selectedProperty = "Anugrah Homes";
-      break;
-    case "2":
-      selectedProperty = "SkyLine Aero Homes";
-      break;
-    case "3":
-      selectedProperty = "Brij Vrinda";
-      break;
-    case "4":
-      selectedProperty = "The Club Farm";
-      break;
-    default:
-      selectedProperty = "Maxpine Group";
-  }
+switch (formData.property) {
+  case "1":
+    selectedProperty = "Anugrah Homes";
+    break;
+  case "2":
+    selectedProperty = "SkyLine Aero Homes";
+    break;
+  case "3":
+    selectedProperty = "Brij Vrinda";
+    break;
+  case "4":
+    selectedProperty = "The Club Farm";
+    break;
+  default:
+    selectedProperty = "Maxpine Group";
+}
 
 
-  const handleSubmit = async (e) => {
+ const handleSubmit = async (e) => {
     e.preventDefault();
 
     const validationErrors = validateForm();
@@ -101,15 +101,15 @@ const validateForm = () => {
         emailData,
         "jr9fqioLswz6tdy46"
       );
-
+      
       // Send data to backend API
       const apiUrl = 'https://rushclick-crm.onrender.com/api/website-lead/leads/max_mugcj40q';
 
-      const apiData = {
+        const apiData = {
         name: formData.name,
         phone: formData.phone,
         email: formData.email,
-        Number_of_Visitors: formData.visitors,
+        Number_of_Visitors: formData.visitors, 
         Selected_Property: selectedProperty,
         Message: formData.message,
         Date: formData.date,
@@ -117,7 +117,7 @@ const validateForm = () => {
         lead_source: "Maxpine Group",
         subsource: "Booking Visit Site"
       };
-
+      
       const _response = await axios.post(apiUrl, apiData);
 
       nav("/thankyou")
@@ -127,7 +127,7 @@ const validateForm = () => {
     } finally {
       setIsSubmitting(false);
     }
-    setTimeout(() => {
+      setTimeout(() => {
       setFormData({
         name: '', email: '', phone: '', date: '', time: '',
         property: '', visitors: '1', message: ''
@@ -260,7 +260,7 @@ const validateForm = () => {
                         className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#20ae9b] focus:border-transparent outline-none transition"
                         placeholder="Name"
                       />
-                      {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+                       {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-slate-700 mb-2">
@@ -336,7 +336,7 @@ const validateForm = () => {
                         onChange={handleChange}
                         className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#20ae9b] focus:border-transparent outline-none transition"
                       />
-                      {errors.date && <p className="text-red-500 text-sm">{errors.date}</p>}
+                       {errors.date && <p className="text-red-500 text-sm">{errors.date}</p>}
                     </div>
                     {/* Preferd Timeing */}
                     <div>
@@ -360,7 +360,7 @@ const validateForm = () => {
                         <option value="16:00">04:00 PM</option>
                         <option value="17:00">05:00 PM</option>
                       </select>
-                      {errors.time && <p className="text-red-500 text-sm">{errors.time}</p>}
+                       {errors.time && <p className="text-red-500 text-sm">{errors.time}</p>}
                     </div>
                   </div>
                   {/* Property choose */}
@@ -382,7 +382,7 @@ const validateForm = () => {
                             <option key={p.id} value={p.id}>{p.name}</option>
                           ))}
                         </select>
-                        {errors.property && <p className="text-red-500 text-sm">{errors.property}</p>}
+                         {errors.property && <p className="text-red-500 text-sm">{errors.property}</p>}
                       </div>
 
                       <div>
@@ -439,8 +439,8 @@ const validateForm = () => {
                     </>
                   ) : (
                     <>
-                      <Calendar className="w-5 h-5" />
-                      Confirm Site Visit
+                  <Calendar className="w-5 h-5" />
+                  Confirm Site Visit
                     </>
                   )}
                 </button>

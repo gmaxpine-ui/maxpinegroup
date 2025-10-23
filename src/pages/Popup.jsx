@@ -96,7 +96,7 @@ export default function Popup() {
 
             // Don't show success message, go directly to thank you page
             handleReset();
-            handleClose(); // close popup
+                handleClose(); // close popup
             navigate("/thankyou"); // go to thank you page immediately
         } catch (err) {
             console.error(err);
@@ -199,7 +199,7 @@ export default function Popup() {
                                             // Allow only digits and plus sign at the start
                                             if (/^\d*$/.test(value)) {
                                                 handleChange(e);
-                                              }
+                                            }
                                               
                                         }}
                                         placeholder="+91 98765 43210"

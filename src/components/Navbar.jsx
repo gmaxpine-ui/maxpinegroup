@@ -7,6 +7,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const [mobile, setMobile] = useState({ menu: false, open: {} });
   const [desktop, setDesktop] = useState({ main: null, nested: null });
+  const [hoveredSubItem, setHoveredSubItem] = useState(null);
   const hoverTimeoutRef = useRef(null);
   const clickTimeoutRef = useRef(null);
   const isSafariRef = useRef(false);
@@ -231,9 +232,7 @@ export default function Navbar() {
               }}
               className={`navbar-dropdown dropdown-item flex items-center justify-between px-6 py-3 transition-colors duration-200 cursor-pointer safari-clickable ${desktop.nested === item.name
                   ? "bg-[#20ae9b] text-white"
-                  : item.sub 
-                    ? "text-gray-700"
-                    : "text-gray-700 hover:bg-[#20ae9b] hover:text-white"
+                  : "text-gray-700"
                 }`}
             >
               <span className="flex-1">{item.name}</span>
@@ -249,7 +248,7 @@ export default function Navbar() {
                       setDesktop({ main: desktop.main, nested: item.name });
                     }
                   }}
-                  className="ml-2 p-1 hover:bg-white hover:text-black hover:bg-opacity-20 rounded transition-colors duration-200"
+                  className="ml-2 p-1 rounded transition-colors duration-200"
                   aria-label="Toggle submenu"
                 >
                   <ChevronRight className="w-4 h-4" />
@@ -279,13 +278,17 @@ export default function Navbar() {
                         e.stopPropagation();
                         handleItemClick(s);
                       }}
+                      onMouseEnter={() => setHoveredSubItem(s.name)}
+                      onMouseLeave={() => setHoveredSubItem(null)}
                       onTouchEnd={(e) => {
                         if (isSafariRef.current) {
                           e.preventDefault();
                           handleItemClick(s);
                         }
                       }}
-                      className="navbar-dropdown dropdown-item block cursor-pointer px-6 py-3 text-gray-700 hover:bg-[#20ae9b] hover:text-white transition-colors duration-200 safari-clickable"
+                      className={`navbar-dropdown dropdown-item block cursor-pointer px-6 py-3 text-gray-700 transition-colors duration-200 safari-clickable ${
+                        hoveredSubItem === s.name ? 'bg-[#20ae9b] text-white' : ''
+                      }`}
                     >
                       {s.name}
                     </div>
@@ -303,7 +306,7 @@ export default function Navbar() {
     <div className="py-1">
       <button
         onClick={() => toggle(stateKey)}
-        className="w-full flex items-center justify-between text-white font-bold py-3 px-3 rounded hover:bg-[#1a9a88] transition-colors duration-200"
+        className="w-full flex items-center justify-between text-white font-bold py-3 px-3 rounded transition-colors duration-200"
       >
 
         <span>{title}
@@ -328,7 +331,7 @@ export default function Navbar() {
 
                   <button
                     onClick={() => toggle(item.name)}
-                    className="w-full flex items-center justify-between text-white hover:bg-[#1a9a88] transition-colors duration-200 py-2 px-3 rounded text-sm"
+                    className="w-full flex items-center justify-between text-white transition-colors duration-200 py-2 px-3 rounded text-sm"
                   >
                     <span>{item.name}</span>
                     <ChevronDown
@@ -347,7 +350,7 @@ export default function Navbar() {
                         <div
                           key={j}
                           onClick={() => handleItemClick(s)}
-                          className="block text-white hover:bg-[#1a9a88] transition-colors duration-200 py-2 px-3 rounded text-xs cursor-pointer"
+                          className="block text-white transition-colors duration-200 py-2 px-3 rounded text-xs cursor-pointer"
                         >
                           {s.name}
                         </div>
@@ -358,7 +361,7 @@ export default function Navbar() {
               ) : (
                 <div
                   onClick={() => handleItemClick(item)}
-                  className="block text-white hover:bg-[#272b24] transition-colors duration-200 py-2 px-3 rounded text-sm cursor-pointer"
+                  className="block text-white transition-colors duration-200 py-2 px-3 rounded text-sm cursor-pointer"
                 >
                   {item.name}
                 </div>
@@ -396,7 +399,7 @@ export default function Navbar() {
                     <Link
                       key={i}
                       to={item.url}
-                      className="flex items-center hover:bg-[#20ae9b] px-4 transition-colors duration-200"
+                      className="flex items-center px-4 transition-colors duration-200"
                     >
                       {item.label}
                     </Link>
@@ -414,7 +417,25 @@ export default function Navbar() {
                         }
                       }}
                     >
-                      <div className="flex items-center gap-1 hover:bg-[#20ae9b] px-4 transition-colors duration-200 cursor-pointer safari-clickable">
+                      <div 
+                        className="flex items-center gap-1 px-4 transition-colors duration-200 cursor-pointer safari-clickable"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          // Toggle dropdown on click
+                          if (desktop.main === item.key) {
+                            setDesktop({ main: null, nested: null });
+                          } else {
+                            setDesktop({ main: item.key, nested: null });
+                          }
+                        }}
+                        onMouseEnter={() => {
+                          setDesktop({ main: item.key, nested: null });
+                        }}
+                        onMouseLeave={() => {
+                          // Don't close immediately on mouse leave for better UX
+                        }}
+                      >
                         {item.label}
                         <ChevronDown className="w-4 h-4" />
                       </div>
@@ -430,7 +451,7 @@ export default function Navbar() {
             </div>
 
             {/* Desktop Site Visit Button */}
-            <div className="bg-white flex items-center px-10 text-black font-bold cursor-pointer hover:bg-white transition-colors duration-200 text-xl">
+            <div className="bg-white flex items-center px-10 text-black font-bold cursor-pointer transition-colors duration-200 text-xl">
               <Link to="/book-site-visit">
                 <div className="flex items-center gap-2">
                   <Lock className="w-4 h-4" />
@@ -464,7 +485,7 @@ export default function Navbar() {
                   <a
                     key={i}
                     href={item.url}
-                    className="block text-white hover:bg-[#1a9a88] transition-colors duration-200 font-medium py-3 px-3 rounded"
+                    className="block text-white transition-colors duration-200 font-medium py-3 px-3 rounded"
                   >
                     {item.label}
                   </a>
@@ -480,7 +501,7 @@ export default function Navbar() {
 
             {/* Mobile Site Visit */}
             <Link to="/site-visit">
-              <div className="bg-[#272b24] px-4 py-3 flex items-center justify-center gap-2 text-white font-semibold cursor-pointer hover:bg-black transition-colors duration-200 rounded mt-4">
+              <div className="bg-[#272b24] px-4 py-3 flex items-center justify-center gap-2 text-white font-semibold cursor-pointer transition-colors duration-200 rounded mt-4">
                 <Lock className="w-4 h-4" />
 
                 Site Visit
