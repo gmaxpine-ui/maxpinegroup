@@ -31,7 +31,7 @@ export default function PropertyListing() {
             <header className="border-b">
                 <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                     <div>
-                        <h1 className="text-xl sm:text-2xl font-bold">ANUGRAH HOMES</h1>
+                        <h1 className="text-xl sm:text-2xl font-bold">ANUGRAH HOMES </h1>
 
                     </div>
                     <div className="text-left sm:text-right">
