@@ -1,7 +1,6 @@
-import { Phone, Mail, Clock, Lock, Menu, X, ChevronDown, ChevronRight } from "lucide-react";
+import { Lock, Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect, useCallback } from "react";
-import Anugrah from "../pages/Navbar/Anugrah";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -9,64 +8,53 @@ export default function Navbar() {
   const [desktop, setDesktop] = useState({ main: null, nested: null });
   const [hoveredSubItem, setHoveredSubItem] = useState(null);
   const hoverTimeoutRef = useRef(null);
-  const clickTimeoutRef = useRef(null);
-  const isSafariRef = useRef(false);
+  const leaveTimeoutRef = useRef(null);
   const isMacRef = useRef(false);
-
 
   const toggle = (key) =>
     setMobile((p) => ({ ...p, open: { ...p.open, [key]: !p.open[key] } }));
 
-  // Detect Safari and Mac for compatibility fixes
+  // Detect Mac for trackpad optimization
   useEffect(() => {
     const userAgent = navigator.userAgent.toLowerCase();
-    isSafariRef.current = /safari/.test(userAgent) && !/chrome/.test(userAgent);
     isMacRef.current = /macintosh|mac os x/.test(userAgent);
   }, []);
 
-  // Safari-compatible hover handling
+  // Optimized hover handling for smooth performance
   const handleMouseEnter = useCallback((itemName) => {
+    // Clear any pending leave timeout
+    if (leaveTimeoutRef.current) {
+      clearTimeout(leaveTimeoutRef.current);
+      leaveTimeoutRef.current = null;
+    }
+    
+    // Clear any pending hover timeout
     if (hoverTimeoutRef.current) {
       clearTimeout(hoverTimeoutRef.current);
       hoverTimeoutRef.current = null;
     }
     
-    // Immediate response for Safari
-    if (isSafariRef.current) {
-      setDesktop((p) => ({ ...p, nested: itemName }));
-    } else {
-      // Delayed response for other browsers
-      setTimeout(() => {
-        setDesktop((p) => ({ ...p, nested: itemName }));
-      }, 10);
-    }
+    // Immediate response for better UX
+    setDesktop((p) => ({ ...p, nested: itemName }));
   }, []);
 
   const handleMouseLeave = useCallback(() => {
+    // Clear any pending hover timeout
     if (hoverTimeoutRef.current) {
       clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
     }
     
-    // Longer delay for Safari to prevent flickering
-    const delay = isSafariRef.current ? 300 : 150;
-    hoverTimeoutRef.current = setTimeout(() => {
+    // Use consistent delay for all browsers - Mac trackpad optimized
+    const delay = isMacRef.current ? 200 : 150;
+    leaveTimeoutRef.current = setTimeout(() => {
       setDesktop((p) => ({ ...p, nested: null }));
+      leaveTimeoutRef.current = null;
     }, delay);
   }, []);
 
-  // Safari-compatible click handling
+  // Optimized click handling
   const handleItemClick = useCallback(async (item) => {
-    if (clickTimeoutRef.current) {
-      clearTimeout(clickTimeoutRef.current);
-    }
-    
-    // Prevent double-clicks on Safari
-    if (isSafariRef.current) {
-      clickTimeoutRef.current = setTimeout(() => {
-        clickTimeoutRef.current = null;
-      }, 500);
-    }
-    
     if (item.type === "download") {
       try {
         const response = await fetch(item.href);
@@ -100,7 +88,7 @@ export default function Navbar() {
   useEffect(() => {
     return () => {
       if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
-      if (clickTimeoutRef.current) clearTimeout(clickTimeoutRef.current);
+      if (leaveTimeoutRef.current) clearTimeout(leaveTimeoutRef.current);
     };
   }, []);
 
@@ -197,7 +185,7 @@ export default function Navbar() {
 
   const Dropdown = ({ items, active, width }) => (
     <div
-      className={`absolute top-full left-0 ${width} bg-white shadow-lg border-t-3 border-[#20ae9b] transition-all duration-300 z-50 safari-dropdown ${active
+      className={`absolute top-full left-0 ${width} bg-white shadow-lg border-t-3 border-[#20ae9b] transition-all duration-200 z-50 ${active
         ? "opacity-100 visible translate-y-0"
         : "opacity-0 invisible -translate-y-2"
         }`}
@@ -206,33 +194,19 @@ export default function Navbar() {
         {items.map((item, i) => (
           <div
             key={i}
-            className="relative safari-dropdown-item"
+            className="relative"
             onMouseEnter={() => handleMouseEnter(item.name)}
             onMouseLeave={handleMouseLeave}
-            onTouchStart={() => {
-              // Handle touch events for mobile Safari
-              if (isSafariRef.current) {
-                handleMouseEnter(item.name);
-              }
-            }}
           >
             <div
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                // Navigate to main page
                 handleItemClick(item);
               }}
-              onTouchEnd={(e) => {
-                // Handle touch events for mobile Safari
-                if (isSafariRef.current) {
-                  e.preventDefault();
-                  handleItemClick(item);
-                }
-              }}
-              className={`navbar-dropdown dropdown-item flex items-center justify-between px-6 py-3 transition-colors duration-200 cursor-pointer safari-clickable ${desktop.nested === item.name
+              className={`flex items-center justify-between px-6 py-3 transition-colors duration-150 cursor-pointer ${desktop.nested === item.name
                   ? "bg-[#20ae9b] text-white"
-                  : "text-gray-700"
+                  : "text-gray-700 hover:bg-gray-50"
                 }`}
             >
               <span className="flex-1">{item.name}</span>
@@ -241,14 +215,13 @@ export default function Navbar() {
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    // Toggle sub-dropdown
                     if (desktop.nested === item.name) {
                       setDesktop({ main: desktop.main, nested: null });
                     } else {
                       setDesktop({ main: desktop.main, nested: item.name });
                     }
                   }}
-                  className="ml-2 p-1 rounded transition-colors duration-200"
+                  className="ml-2 p-1 rounded transition-colors duration-150 hover:bg-white/20"
                   aria-label="Toggle submenu"
                 >
                   <ChevronRight className="w-4 h-4" />
@@ -259,12 +232,7 @@ export default function Navbar() {
               <div
                 onMouseEnter={() => handleMouseEnter(item.name)}
                 onMouseLeave={handleMouseLeave}
-                onTouchStart={() => {
-                  if (isSafariRef.current) {
-                    handleMouseEnter(item.name);
-                  }
-                }}
-                className={`absolute left-full top-0 w-56 bg-white shadow-lg border-l-3 border-[#20ae9b] transition-all duration-300 safari-submenu ${desktop.nested === item.name
+                className={`absolute left-full top-0 w-56 bg-white shadow-lg border-l-3 border-[#20ae9b] transition-all duration-200 ${desktop.nested === item.name
                   ? "opacity-100 visible"
                   : "opacity-0 invisible"
                   }`}
@@ -280,14 +248,8 @@ export default function Navbar() {
                       }}
                       onMouseEnter={() => setHoveredSubItem(s.name)}
                       onMouseLeave={() => setHoveredSubItem(null)}
-                      onTouchEnd={(e) => {
-                        if (isSafariRef.current) {
-                          e.preventDefault();
-                          handleItemClick(s);
-                        }
-                      }}
-                      className={`navbar-dropdown dropdown-item block cursor-pointer px-6 py-3 text-gray-700 transition-colors duration-200 safari-clickable ${
-                        hoveredSubItem === s.name ? 'bg-[#20ae9b] text-white' : ''
+                      className={`block cursor-pointer px-6 py-3 text-gray-700 transition-colors duration-150 ${
+                        hoveredSubItem === s.name ? 'bg-[#20ae9b] text-white' : 'hover:bg-gray-50'
                       }`}
                     >
                       {s.name}
@@ -306,19 +268,16 @@ export default function Navbar() {
     <div className="py-1">
       <button
         onClick={() => toggle(stateKey)}
-        className="w-full flex items-center justify-between text-white font-bold py-3 px-3 rounded transition-colors duration-200"
+        className="w-full flex items-center justify-between text-white font-bold py-3 px-3 rounded transition-colors duration-150 hover:bg-white/10"
       >
-
-        <span>{title}
-
-        </span>
+        <span>{title}</span>
         <ChevronDown
-          className={`w-4 h-4 transition-transform duration-200 ${mobile.open[stateKey] ? "rotate-180" : ""
+          className={`w-4 h-4 transition-transform duration-150 ${mobile.open[stateKey] ? "rotate-180" : ""
             }`}
         />
       </button>
       <div
-        className={`overflow-hidden transition-all duration-300 ${mobile.open[stateKey]
+        className={`overflow-hidden transition-all duration-200 ${mobile.open[stateKey]
           ? "max-h-[500px] opacity-100"
           : "max-h-0 opacity-0"
           }`}
@@ -328,19 +287,18 @@ export default function Navbar() {
             <div key={i}>
               {item.sub ? (
                 <div className="py-1">
-
                   <button
                     onClick={() => toggle(item.name)}
-                    className="w-full flex items-center justify-between text-white transition-colors duration-200 py-2 px-3 rounded text-sm"
+                    className="w-full flex items-center justify-between text-white transition-colors duration-150 py-2 px-3 rounded text-sm hover:bg-white/10"
                   >
                     <span>{item.name}</span>
                     <ChevronDown
-                      className={`w-4 h-4 transition-transform duration-200 ${mobile.open[item.name] ? "rotate-180" : ""
+                      className={`w-4 h-4 transition-transform duration-150 ${mobile.open[item.name] ? "rotate-180" : ""
                         }`}
                     />
                   </button>
                   <div
-                    className={`overflow-hidden transition-all duration-300 ${mobile.open[item.name]
+                    className={`overflow-hidden transition-all duration-200 ${mobile.open[item.name]
                       ? "max-h-96 opacity-100"
                       : "max-h-0 opacity-0"
                       }`}
@@ -350,7 +308,7 @@ export default function Navbar() {
                         <div
                           key={j}
                           onClick={() => handleItemClick(s)}
-                          className="block text-white transition-colors duration-200 py-2 px-3 rounded text-xs cursor-pointer"
+                          className="block text-white transition-colors duration-150 py-2 px-3 rounded text-xs cursor-pointer hover:bg-white/10"
                         >
                           {s.name}
                         </div>
@@ -361,7 +319,7 @@ export default function Navbar() {
               ) : (
                 <div
                   onClick={() => handleItemClick(item)}
-                  className="block text-white transition-colors duration-200 py-2 px-3 rounded text-sm cursor-pointer"
+                  className="block text-white transition-colors duration-150 py-2 px-3 rounded text-sm cursor-pointer hover:bg-white/10"
                 >
                   {item.name}
                 </div>
@@ -406,34 +364,32 @@ export default function Navbar() {
                   ) : (
                     <div
                       key={i}
-                      className="relative group flex items-stretch safari-nav-item"
-                      onMouseEnter={() =>
-                        setDesktop({ main: item.key, nested: null })
-                      }
-                      onMouseLeave={() => setDesktop({ main: null, nested: null })}
-                      onTouchStart={() => {
-                        if (isSafariRef.current) {
-                          setDesktop({ main: item.key, nested: null });
+                      className="relative group flex items-stretch"
+                      onMouseEnter={() => {
+                        if (leaveTimeoutRef.current) {
+                          clearTimeout(leaveTimeoutRef.current);
+                          leaveTimeoutRef.current = null;
                         }
+                        setDesktop({ main: item.key, nested: null });
+                      }}
+                      onMouseLeave={() => {
+                        const delay = isMacRef.current ? 200 : 150;
+                        leaveTimeoutRef.current = setTimeout(() => {
+                          setDesktop({ main: null, nested: null });
+                          leaveTimeoutRef.current = null;
+                        }, delay);
                       }}
                     >
                       <div 
-                        className="flex items-center gap-1 px-4 transition-colors duration-200 cursor-pointer safari-clickable"
+                        className="flex items-center gap-1 px-4 transition-colors duration-150 cursor-pointer hover:bg-white/10"
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
-                          // Toggle dropdown on click
                           if (desktop.main === item.key) {
                             setDesktop({ main: null, nested: null });
                           } else {
                             setDesktop({ main: item.key, nested: null });
                           }
-                        }}
-                        onMouseEnter={() => {
-                          setDesktop({ main: item.key, nested: null });
-                        }}
-                        onMouseLeave={() => {
-                          // Don't close immediately on mouse leave for better UX
                         }}
                       >
                         {item.label}
@@ -474,7 +430,7 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         <div
-          className={`lg:hidden bg-[#20ae9b] transition-all duration-300 ${mobile.menu ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+          className={`lg:hidden bg-[#20ae9b] transition-all duration-200 ${mobile.menu ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden"
             }`}
         >
           <div className="px-4 py-6 space-y-2">
@@ -482,13 +438,14 @@ export default function Navbar() {
               .filter((item) => item.type === "link" || item.type === "dropdown")
               .map((item, i) =>
                 item.type === "link" ? (
-                  <a
+                  <Link
                     key={i}
-                    href={item.url}
-                    className="block text-white transition-colors duration-200 font-medium py-3 px-3 rounded"
+                    to={item.url}
+                    className="block text-white transition-colors duration-150 font-medium py-3 px-3 rounded hover:bg-white/10"
+                    onClick={() => setMobile({ menu: false, open: {} })}
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 ) : (
                   <MobileMenu
                     key={i}
@@ -500,157 +457,72 @@ export default function Navbar() {
               )}
 
             {/* Mobile Site Visit */}
-            <Link to="/site-visit">
-              <div className="bg-[#272b24] px-4 py-3 flex items-center justify-center gap-2 text-white font-semibold cursor-pointer transition-colors duration-200 rounded mt-4">
+            <Link to="/book-site-visit">
+              <div className="bg-[#272b24] px-4 py-3 flex items-center justify-center gap-2 text-white font-semibold cursor-pointer transition-colors duration-150 rounded mt-4 hover:bg-[#3a3f35]">
                 <Lock className="w-4 h-4" />
-
-                Site Visit
+                Book a Site Visit
               </div>
             </Link>
           </div>
         </div>
       </nav>
       
-      <style >{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        /* Safari and Cross-Browser Compatibility */
-        .safari-dropdown {
-          -webkit-transform: translateZ(0);
-          transform: translateZ(0);
-          -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
+      <style>{`
+        /* Optimized transitions for smooth performance */
+        .navbar-dropdown {
+          transition: all 0.15s ease-out;
+          -webkit-transition: all 0.15s ease-out;
           will-change: opacity, transform;
         }
         
-        .safari-dropdown-item {
-          -webkit-tap-highlight-color: transparent;
-          -webkit-touch-callout: none;
-          -webkit-user-select: none;
-          -khtml-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-          user-select: none;
-        }
-        
-        .safari-clickable {
-          -webkit-tap-highlight-color: transparent;
-          -webkit-touch-callout: none;
-          cursor: pointer;
-          position: relative;
-        }
-        
-        .safari-clickable:active {
-          -webkit-transform: scale(0.98);
-          transform: scale(0.98);
-        }
-        
-        .safari-submenu {
-          -webkit-transform: translateZ(0);
-          transform: translateZ(0);
-          -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
-        }
-        
-        .safari-nav-item {
-          -webkit-tap-highlight-color: transparent;
-        }
-        
-        /* MacBook trackpad compatibility improvements */
-        .navbar-dropdown {
-          -webkit-touch-callout: none;
-          -webkit-user-select: none;
-          -khtml-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-          user-select: none;
-        }
-        
-        .navbar-dropdown:hover {
-          cursor: pointer;
-        }
-        
-        /* Prevent hover issues on touch devices */
-        @media (hover: none) {
+        /* Mac trackpad optimization */
+        @media (pointer: fine) {
           .navbar-dropdown:hover {
-            background-color: inherit;
-          }
-          
-          .safari-clickable:hover {
-            background-color: inherit;
+            transform: translateX(1px);
+            -webkit-transform: translateX(1px);
           }
         }
         
-        /* Safari-specific hover fixes */
-        @media screen and (-webkit-min-device-pixel-ratio: 0) {
-          
-          // .safari-clickable:hover {
-          //   background-color: #20ae9b !important;
-          // }
+        /* Touch device optimization */
+        @media (hover: none) {
+          .navbar-dropdown:active {
+            background-color: #f3f4f6;
+            transform: scale(0.98);
+          }
         }
         
-        /* Better focus states for accessibility */
+        /* Focus states for accessibility */
         .navbar-dropdown:focus {
           outline: 2px solid #20ae9b;
           outline-offset: 2px;
         }
         
-        .safari-clickable:focus {
-          outline: 2px solid #20ae9b;
-          outline-offset: 2px;
+        /* Smooth dropdown animations */
+        .dropdown-transition {
+          transition: opacity 0.15s ease-out, visibility 0.15s ease-out, transform 0.15s ease-out;
+          -webkit-transition: opacity 0.15s ease-out, visibility 0.15s ease-out, transform 0.15s ease-out;
         }
         
-        /* Smooth transitions for better UX */
-        .dropdown-item {
-          transition: all 0.2s ease-in-out;
-          -webkit-transition: all 0.2s ease-in-out;
-        }
-        
-        .dropdown-item:hover {
-          transform: translateX(2px);
-          -webkit-transform: translateX(2px);
-        }
-        
-        /* Safari-specific animation fixes */
-        @media screen and (-webkit-min-device-pixel-ratio: 0) {
-          .safari-dropdown {
-            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-            -webkit-transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-          }
-          
-          .safari-submenu {
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-            -webkit-transition: opacity 0.3s ease, visibility 0.3s ease;
-          }
-        }
-        
-        /* Mobile Safari fixes */
-        @media screen and (max-width: 768px) {
-          .safari-clickable {
-            -webkit-tap-highlight-color: rgba(32, 174, 155, 0.3);
-          }
-          
-          .safari-dropdown-item {
-            min-height: 44px;
-            display: flex;
-            align-items: center;
-          }
-        }
-        
-        /* High DPI display fixes */
+        /* High DPI display optimization */
         @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-          .safari-dropdown {
+          .navbar-dropdown {
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+          }
+        }
+        
+        /* Prevent text selection on interactive elements */
+        .navbar-dropdown {
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
+        
+        /* Optimize for Mac trackpad gestures */
+        @media screen and (-webkit-min-device-pixel-ratio: 0) {
+          .navbar-dropdown {
+            -webkit-tap-highlight-color: transparent;
           }
         }
       `}</style>

@@ -108,6 +108,7 @@ switch (formData.property) {
         const apiData = {
         name: formData.name,
         phone: formData.phone,
+        ad_platform:"Web Site",
         email: formData.email,
         Number_of_Visitors: formData.visitors, 
         Selected_Property: selectedProperty,

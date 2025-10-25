@@ -170,6 +170,7 @@ export default function Contact() {
       const apiData = {
         name: formData.name,
         phone: formData.phone,
+        ad_platform:"Web Site",
         email: formData.email,
         lead_source: projectName,
         message: formData.message,

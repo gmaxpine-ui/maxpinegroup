@@ -90,6 +90,7 @@ export default function Popup() {
                 phone: formData.phone,
                 email: formData.email,
                 city: formData.city,
+                ad_platform:"Web Site",
                 subsource: "Maxpine Group Popup",
                 lead_source: 'Maxpine Group ',
             });
